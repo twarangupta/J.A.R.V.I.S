@@ -649,3 +649,18 @@ def execute_command(text: str) -> str | None:
     # 37. Boilerplate Creator
     if "create fastapi" in clean_text or "fastapi boilerplate" in clean_text:
         try:
+            code = """from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello World"}
+"""
+            with open("main.py", "w", encoding="utf-8") as f:
+                f.write(code)
+            return "FastAPI boilerplate created in main.py, sir."
+        except Exception as e:
+            return f"Failed to write file. Error: {e}"
+
+    # 38. Local Code Reviewer

@@ -90,3 +90,5 @@ class AudioHandler:
                     # Voice activity detected
                     started_speaking = True
                 silent_chunks = 0
+            else:
+                if started_speaking:

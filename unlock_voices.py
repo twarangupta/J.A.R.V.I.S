@@ -45,3 +45,4 @@ def unlock():
             src_voice = winreg.OpenKey(src_root, voice_name)
             dest_voice = winreg.CreateKey(dest_root, voice_name)
             copy_key(src_voice, dest_voice)
+            winreg.CloseKey(src_voice)

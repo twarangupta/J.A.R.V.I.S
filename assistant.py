@@ -39,3 +39,4 @@ try:
     elif "your name" in command:
         speak("I am Jarvis.")
 
+    elif "thank you" in command:

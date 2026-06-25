@@ -88,3 +88,5 @@ class Speaker:
                 self.out_stream.stop_stream()
                 self.out_stream.close()
                 self.out_stream = None
+        except Exception as e:
+            pass

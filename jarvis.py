@@ -141,3 +141,6 @@ def main():
                 print(f"Transcription error: {e}")
                 transcription = ""
                 
+            if not transcription:
+                print("[No speech recognized]")
+                continue
