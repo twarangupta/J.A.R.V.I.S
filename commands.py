@@ -219,3 +219,18 @@ def execute_command(text: str) -> str | None:
                 return "What note would you like me to write, sir?"
                 
             notes_path = "notes.md"
+            with open(notes_path, "a", encoding="utf-8") as f:
+                timestamp = datetime.now().strftime("%Y-%m-%d %I:%M %p")
+                f.write(f"- [{timestamp}] {note_text.capitalize()}\n")
+            return f"I've saved that to your notes, sir."
+        except Exception as e:
+            return f"Failed to save note. Error: {e}"
+
+    if "read my notes" in clean_text or "read notes" in clean_text:
+        try:
+            notes_path = "notes.md"
+            if os.path.exists(notes_path):
+                with open(notes_path, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+                if not lines:
+                    return "Your notepad is currently empty, sir."

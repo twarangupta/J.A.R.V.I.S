@@ -14,3 +14,4 @@ def copy_key(src_key, dest_key):
     # Copy subkeys recursively
     try:
         i = 0
+        while True:

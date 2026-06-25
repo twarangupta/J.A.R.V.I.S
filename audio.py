@@ -29,3 +29,5 @@ class AudioHandler:
         except Exception as e:
             print(f"[Audio Error] Failed to open microphone stream: {e}")
             raise e
+
+    def stop_stream(self):

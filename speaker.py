@@ -28,3 +28,5 @@ class Speaker:
         if hasattr(self, 'out_stream') and self.out_stream:
             try:
                 self.out_stream.stop_stream()
+                self.out_stream.close()
+            except:

@@ -12,3 +12,4 @@ class Brain:
         self.history = []
         self.reset_conversation()
 
+    def reset_conversation(self):

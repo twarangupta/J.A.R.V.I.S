@@ -12,3 +12,4 @@ engine.setProperty("rate", 170)
 
 
 def speak(text):
+    print("Jarvis:", text)
