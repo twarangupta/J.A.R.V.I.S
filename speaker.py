@@ -74,3 +74,5 @@ class Speaker:
                 format=pyaudio.paInt16,
                 channels=1,
                 rate=self.sample_rate,
+                output=True
+            )

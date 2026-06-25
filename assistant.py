@@ -32,3 +32,4 @@ try:
     if "hello" in command:
         speak("Hello Twaran. Welcome back!")
 
+    elif "time" in command:

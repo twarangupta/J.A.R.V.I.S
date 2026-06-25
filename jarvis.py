@@ -118,3 +118,6 @@ def main():
         
         # Conversation loop
         while True:
+            if interrupted:
+                interrupted = False
+                

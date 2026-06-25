@@ -76,3 +76,5 @@ class AudioHandler:
         max_silent_chunks = int(silence_timeout_seconds / chunk_duration)
         max_total_chunks = int(max_seconds / chunk_duration)
         
+        started_speaking = False
+        

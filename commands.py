@@ -545,3 +545,18 @@ def execute_command(text: str) -> str | None:
                 import threading
                 from speaker import speak
                 def run_reminder(s, t):
+                    import time
+                    time.sleep(s)
+                    speak(f"Sir, this is your reminder to {t}.")
+                    
+                threading.Thread(target=run_reminder, args=(secs, task)).start()
+                return f"I will remind you to {task} in {dur} {unit}s, sir."
+        except Exception as e:
+            return f"Failed to set reminder. Error: {e}"
+
+    # 32. Git Helpers
+    if "git status" in clean_text:
+        try:
+            res = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True)
+            lines = res.stdout.strip().split("\n")
+            modified = len([l for l in lines if l])

@@ -34,3 +34,4 @@ class Brain:
                 reply = "I apologize, but I received empty telemetry from my brain core."
             
             self.history.append({"role": "assistant", "content": reply})
+            return reply

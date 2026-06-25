@@ -23,3 +23,4 @@ stream = pa.open(
     frames_per_buffer=CHUNK_SIZE
 )
 
+try:
