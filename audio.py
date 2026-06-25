@@ -14,3 +14,5 @@ class AudioHandler:
         self.stream = None
 
     def start_stream(self):
+        """Starts the microphone input stream."""
+        if self.stream is not None:

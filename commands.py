@@ -116,3 +116,18 @@ def execute_command(text: str) -> str | None:
 
     # 4. Open Calculator
     if is_open_request and ("calculator" in clean_text or "calc" in clean_text):
+        try:
+            subprocess.Popen("calc")
+            return "Opening Calculator."
+        except Exception as e:
+            return f"Failed to open Calculator. Error: {e}"
+
+    # 5. Open Notepad
+    if is_open_request and "notepad" in clean_text:
+        try:
+            subprocess.Popen("notepad")
+            return "Opening Notepad."
+        except Exception as e:
+            return f"Failed to open Notepad. Error: {e}"
+
+    # 6. Tell me the time

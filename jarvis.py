@@ -24,3 +24,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     # Reset prediction buffers to clear the wake-up word trigger
     detector.reset()
     
+    speak(text)
+    
+    # Start microphone stream to monitor for interrupt wake word

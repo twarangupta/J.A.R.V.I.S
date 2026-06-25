@@ -5,3 +5,4 @@ class Brain:
     """
     Manages the offline conversation brain powered by Ollama.
     Maintains dialogue history to support continuous conversational context.
+    """

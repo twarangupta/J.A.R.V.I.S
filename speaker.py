@@ -14,3 +14,5 @@ class Speaker:
             self.voice = PiperVoice.load("models/jarvis-high.onnx")
             self.sample_rate = self.voice.config.sample_rate
             self.pa = pyaudio.PyAudio()
+            self.play_thread = None
+            self.stop_playback = threading.Event()
