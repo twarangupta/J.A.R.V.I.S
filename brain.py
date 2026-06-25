@@ -10,3 +10,4 @@ class Brain:
         self.model = MODEL_NAME
         self.system_prompt = OLLAMA_SYSTEM_PROMPT
         self.history = []
+        self.reset_conversation()

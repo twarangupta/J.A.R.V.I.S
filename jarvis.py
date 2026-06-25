@@ -40,3 +40,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
                 interrupted = True
                 print("\n[Speech interrupted by keyboard]")
                 break
+                
+            chunk = audio_handler.read_chunk()
+            chunks_count += 1

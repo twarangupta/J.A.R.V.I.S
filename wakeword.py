@@ -9,3 +9,4 @@ class WakeWordDetector:
     and detect the wake word.
     """
     def __init__(self):
+        print(f"Initializing OpenWakeWord with model: {WAKE_WORD_MODEL}")

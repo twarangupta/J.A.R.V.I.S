@@ -190,3 +190,18 @@ def execute_command(text: str) -> str | None:
             return f"Failed to retrieve system status. Error: {e}"
 
     # 13. Instant Screenshot Capture
+    if "take a screenshot" in clean_text or "capture screen" in clean_text or "screenshot" in clean_text:
+        try:
+            desktop = os.path.join(os.path.expanduser("~"), "Desktop")
+            filename = datetime.now().strftime("screenshot_%Y%m%d_%H%M%S.png")
+            filepath = os.path.join(desktop, filename)
+            screenshot = pyautogui.screenshot()
+            screenshot.save(filepath)
+            os.startfile(filepath)
+            return "Screenshot captured and saved to your Desktop, sir."
+        except Exception as e:
+            return f"Failed to take screenshot. Error: {e}"
+
+    # 14. Voice Scratchpad / Notes
+    if "write a note" in clean_text or "save a note" in clean_text:
+        try:

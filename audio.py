@@ -25,3 +25,5 @@ class AudioHandler:
                 rate=SAMPLE_RATE,
                 input=True,
                 frames_per_buffer=CHUNK_SIZE
+            )
+        except Exception as e:
