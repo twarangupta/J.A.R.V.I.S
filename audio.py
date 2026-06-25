@@ -86,3 +86,5 @@ class AudioHandler:
             amplitude = np.max(np.abs(chunk))
             
             if amplitude > silence_threshold:
+                if not started_speaking:
+                    # Voice activity detected

@@ -4,3 +4,4 @@ model = WhisperModel(
     "base",
     device="cpu",
     compute_type="int8"
+)

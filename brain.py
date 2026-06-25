@@ -39,3 +39,4 @@ class Brain:
         except Exception as e:
             error_msg = f"Brain communication error: {e}"
             print(f"[Error] {error_msg}")
+            # Do not append error message to history to keep it clean

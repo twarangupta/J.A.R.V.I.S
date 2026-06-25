@@ -25,3 +25,4 @@ WHISPER_DEVICE = "cpu"        # GTX 1650 doesn't have PyTorch CUDA, so we use cp
 WHISPER_COMPUTE_TYPE = "int8" # int8 is recommended for CPU speed when using small/medium models
 WHISPER_LANGUAGE = "en"       # Lock speech detection to English to prevent hallucinations from noise
 WHISPER_VAD_FILTER = True     # Use Voice Activity Detection (VAD) to ignore silence/breathing
+

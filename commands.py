@@ -619,3 +619,18 @@ def execute_command(text: str) -> str | None:
             return f"Failed to parse clipboard as JSON. Error: {e}"
 
     # 36. Codebase Search
+    if "search codebase for" in clean_text or "search code for" in clean_text:
+        try:
+            term = clean_text.split("for", 1)[1].strip()
+            matches = []
+            for root, dirs, files in os.walk("."):
+                if "venv" in root or ".venv" in root or ".git" in root or "__pycache__" in root:
+                     continue
+                for file in files:
+                    if file.endswith((".py", ".txt", ".json", ".md", ".sh", ".ps1")):
+                        path = os.path.join(root, file)
+                        try:
+                            with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                                for i, line in enumerate(f, 1):
+                                     if term in line.lower():
+                                         matches.append(f"{file} line {i}")

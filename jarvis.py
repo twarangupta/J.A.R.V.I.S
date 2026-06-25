@@ -134,3 +134,6 @@ def main():
                     audio_data,
                     beam_size=5,
                     language=WHISPER_LANGUAGE,
+                    vad_filter=WHISPER_VAD_FILTER
+                )
+                transcription = "".join(seg.text for seg in segments).strip()

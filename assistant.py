@@ -37,3 +37,4 @@ try:
         speak(f"The time is {current_time}")
 
     elif "your name" in command:
+        speak("I am Jarvis.")

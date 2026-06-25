@@ -84,3 +84,5 @@ class Speaker:
                 if self.out_stream:
                     self.out_stream.write(audio_bytes[i:i+chunk_size])
             
+            if self.out_stream:
+                self.out_stream.stop_stream()
