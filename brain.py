@@ -37,3 +37,4 @@ class Brain:
             return reply
             
         except Exception as e:
+            error_msg = f"Brain communication error: {e}"

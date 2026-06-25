@@ -32,3 +32,4 @@ class WakeWordDetector:
         Returns True if the wake word is detected above the threshold.
         """
         # Run prediction on the chunk
+        self.model.predict(chunk)

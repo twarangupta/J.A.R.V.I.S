@@ -82,3 +82,5 @@ class AudioHandler:
             chunk = self.read_chunk()
             recorded_frames.append(chunk)
             
+            # Simple volume threshold check (using Root Mean Square or max amplitude)
+            amplitude = np.max(np.abs(chunk))

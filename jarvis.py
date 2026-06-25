@@ -128,3 +128,6 @@ def main():
             if len(audio_data) == 0:
                 continue
                 
+            print("[Transcribing...]")
+            try:
+                segments, info = whisper_model.transcribe(

@@ -80,3 +80,5 @@ class Speaker:
             chunk_size = 1024
             for i in range(0, len(audio_bytes), chunk_size):
                 if self.stop_playback.is_set():
+                    break
+                if self.out_stream:

@@ -40,3 +40,4 @@ def unlock():
     try:
         i = 0
         while True:
+            voice_name = winreg.EnumKey(src_root, i)

@@ -590,3 +590,17 @@ def execute_command(text: str) -> str | None:
                 if "kill" in clean_text:
                     subprocess.run(f"taskkill /F /PID {pid}", shell=True, check=True)
                     return f"Successfully terminated process with P.I.D. {pid} on port {port}."
+                else:
+                    return f"Process with P.I.D. {pid} is listening on port {port}, sir."
+        except Exception as e:
+            return f"Failed to operate on port. Error: {e}"
+
+    # 34. Docker Container Status
+    if "check docker" in clean_text or "docker status" in clean_text:
+        try:
+            res = subprocess.run(["docker", "ps", "--format", "{{.Names}}"], capture_output=True, text=True, check=True)
+            containers = [c.strip() for c in res.stdout.strip().split("\n") if c.strip()]
+            if not containers:
+                return "No active docker containers are running, sir."
+            return f"The running docker containers are: {', '.join(containers)}."
+        except Exception as e:

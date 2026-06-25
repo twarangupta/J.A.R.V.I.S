@@ -25,3 +25,4 @@ stream = pa.open(
 
 try:
     while True:
+        data = stream.read(CHUNK_SIZE, exception_on_overflow=False)
