@@ -53,3 +53,5 @@ class Speaker:
                 # Generate audio bytes
                 audio_bytes = b""
                 for chunk in self.voice.synthesize(text):
+                    audio_bytes += chunk.audio_int16_bytes
+                

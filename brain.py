@@ -24,3 +24,4 @@ class Brain:
         and returns the AI's spoken response.
         """
         self.history.append({"role": "user", "content": question})
+        try:

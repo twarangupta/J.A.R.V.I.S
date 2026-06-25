@@ -11,3 +11,4 @@ text = "Hello Sir. I am Jarvis. Systems are fully functional."
 
 print("Synthesizing...")
 start = time.time()
+audio_bytes = b""

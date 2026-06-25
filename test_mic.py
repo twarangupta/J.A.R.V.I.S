@@ -16,3 +16,4 @@ print(f"\nDefault input device: {default_device.get('name')} at index {default_d
 
 print("\nStarting stream. Speak into your mic (press Ctrl+C to stop)...")
 stream = pa.open(
+    format=pyaudio.paInt16,

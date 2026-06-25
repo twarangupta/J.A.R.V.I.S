@@ -54,3 +54,6 @@ class AudioHandler:
             
         try:
             data = self.stream.read(CHUNK_SIZE, exception_on_overflow=False)
+            return np.frombuffer(data, dtype=np.int16)
+        except Exception as e:
+            # Underflow/Overflow or hardware issues

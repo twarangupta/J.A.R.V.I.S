@@ -85,3 +85,7 @@ def main():
             compute_type=WHISPER_COMPUTE_TYPE
         )
         print("Speech recognition loaded successfully.")
+    except Exception as e:
+        print(f"Failed to initialize Whisper model: {e}")
+        speak("Error loading speech recognition model. Exiting.")
+        wait_speaking()

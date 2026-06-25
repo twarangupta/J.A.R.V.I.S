@@ -397,3 +397,18 @@ def execute_command(text: str) -> str | None:
             return f"Failed to check disk usage. Error: {e}"
 
     # 22. Clipboard Reader
+    if "read my clipboard" in clean_text or "read clipboard" in clean_text:
+        try:
+            import pyperclip
+            text_clip = pyperclip.paste().strip()
+            if text_clip:
+                if len(text_clip) > 150:
+                    text_clip = text_clip[:150] + " ... and so on."
+                return f"Your clipboard contains: {text_clip}"
+            return "Your clipboard is currently empty, sir."
+        except Exception as e:
+            return f"Failed to read clipboard. Error: {e}"
+
+    # 23. Voice Alarm / Timer
+    if "timer for" in clean_text or "set a timer" in clean_text:
+        try:

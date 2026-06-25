@@ -15,3 +15,4 @@ OLLAMA_SYSTEM_PROMPT = (
 # Set to 'hey_jarvis' or path to custom trained 'daddy_s_home.tflite' model.
 WAKE_WORD_MODEL = "hey_jarvis" 
 WAKE_WORD_THRESHOLD = 0.2
+
