@@ -555,7 +555,7 @@ def execute_command(text: str) -> str | None:
             return f"Failed to set reminder. Error: {e}"
 
     # 32. Git Helpers
-    if "git status" in clean_text:
+    if "git status" in clean_text or "get status" in clean_text:
         try:
             res = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True)
             lines = res.stdout.strip().split("\n")
@@ -566,7 +566,7 @@ def execute_command(text: str) -> str | None:
         except Exception as e:
             return f"Failed to run git status. Error: {e}"
 
-    if "git commit" in clean_text or "commit my changes" in clean_text or "git check in" in clean_text:
+    if "git commit" in clean_text or "get commit" in clean_text or "commit my changes" in clean_text or "git check in" in clean_text or "get check in" in clean_text:
         try:
             subprocess.run(["git", "add", "."], check=True)
             msg = f"Automated commit via Jarvis on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
