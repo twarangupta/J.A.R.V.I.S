@@ -39,3 +39,4 @@ class WakeWordDetector:
         
         if score >= WAKE_WORD_THRESHOLD:
             print(f"\n[Wake Word Triggered] Confidence: {score:.2f}")
+            return True

@@ -96,3 +96,5 @@ class Speaker:
 # Create global instance for easy access
 _speaker = Speaker()
 
+def speak(text: str):
+    """Global function to speak text."""

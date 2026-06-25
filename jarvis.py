@@ -154,3 +154,6 @@ def main():
                 break
                 
             # Check if this is a direct system command
+            command_response = execute_command(transcription)
+            
+            if command_response is not None:

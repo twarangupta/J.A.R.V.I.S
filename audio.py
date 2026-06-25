@@ -99,3 +99,5 @@ class AudioHandler:
         
         # Clean up stream after phrase is recorded
         self.stop_stream()
+        
+        if not recorded_frames:

@@ -49,3 +49,4 @@ def unlock():
             winreg.CloseKey(dest_voice)
             i += 1
     except OSError:
+        pass # No more voices

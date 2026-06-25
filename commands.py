@@ -708,3 +708,18 @@ def read_root():
             test_code = ask_ai(prompt)
             test_code = test_code.replace("```python", "").replace("```", "").strip()
             test_filename = f"test_{filename}"
+            with open(test_filename, "w", encoding="utf-8") as f:
+                f.write(test_code)
+            return f"Unit test suite generated and saved as {test_filename}, sir."
+        except Exception as e:
+            return f"Failed to generate tests. Error: {e}"
+
+    # 40. Downloads Folder Organizer
+    if "organize my downloads" in clean_text or "organize downloads" in clean_text:
+        try:
+            downloads = os.path.join(os.path.expanduser("~"), "Downloads")
+            if not os.path.exists(downloads):
+                return "Downloads directory not found, sir."
+            categories = {
+                "Documents": [".pdf", ".docx", ".doc", ".xlsx", ".xls", ".txt", ".csv", ".pptx", ".ppt"],
+                "Images": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg", ".ico"],

@@ -45,3 +45,4 @@ class Brain:
 # Singleton instance
 brain = Brain()
 
+def ask_ai(question: str) -> str:
