@@ -10,3 +10,5 @@ class AudioHandler:
     and to record complete phrases with basic silence detection for Whisper.
     """
     def __init__(self):
+        self.pa = pyaudio.PyAudio()
+        self.stream = None

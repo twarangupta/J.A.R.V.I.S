@@ -17,3 +17,6 @@ from commands import execute_command
 from speaker import speak, stop_speaking, wait_speaking, is_speaking
 
 def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
+    """
+    Plays the response. While speaking, continuously streams mic audio and checks for the wake word.
+    If the wake word is detected, stops speaking immediately and returns True.

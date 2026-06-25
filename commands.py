@@ -86,3 +86,18 @@ def execute_command(text: str) -> str | None:
                         subprocess.Popen([path, target_url])
                     else:
                         os.startfile(path)
+                    opened = True
+                    break
+            
+            if not opened:
+                import webbrowser
+                webbrowser.open(target_url if target_url else "https://www.google.com")
+                
+            return f"Opening {site_name}."
+        except Exception as e:
+            return f"Failed to open {site_name}. Error: {e}"
+
+    # 2. Open VS Code
+    if is_open_request and ("vs code" in clean_text or "vscode" in clean_text or "visual studio code" in clean_text):
+        try:
+            subprocess.Popen("code", shell=True)

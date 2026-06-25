@@ -3,3 +3,4 @@ import pyttsx3
 from datetime import datetime
 
 # Initialize speech engine
+engine = pyttsx3.init()
