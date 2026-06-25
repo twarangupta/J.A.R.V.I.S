@@ -101,3 +101,5 @@ class AudioHandler:
         self.stop_stream()
         
         if not recorded_frames:
+            return np.zeros(0, dtype=np.float32)
+            

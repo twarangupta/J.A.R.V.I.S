@@ -157,3 +157,6 @@ def main():
             command_response = execute_command(transcription)
             
             if command_response is not None:
+                interrupted = speak_and_interruptible(command_response, detector)
+            else:
+                # Query Ollama Brain

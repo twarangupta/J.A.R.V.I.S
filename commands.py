@@ -723,3 +723,18 @@ def read_root():
             categories = {
                 "Documents": [".pdf", ".docx", ".doc", ".xlsx", ".xls", ".txt", ".csv", ".pptx", ".ppt"],
                 "Images": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg", ".ico"],
+                "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"],
+                "Installers": [".exe", ".msi"],
+                "Audio": [".mp3", ".wav", ".flac", ".m4a"],
+                "Video": [".mp4", ".mkv", ".avi", ".mov"]
+            }
+            moved_count = 0
+            for item in os.listdir(downloads):
+                item_path = os.path.join(downloads, item)
+                if os.path.isfile(item_path):
+                    ext = os.path.splitext(item)[1].lower()
+                    dest_dir = "Others"
+                    for category, extensions in categories.items():
+                        if ext in extensions:
+                            dest_dir = category
+                            break

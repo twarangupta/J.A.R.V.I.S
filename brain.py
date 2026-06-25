@@ -46,3 +46,4 @@ class Brain:
 brain = Brain()
 
 def ask_ai(question: str) -> str:
+    """Convenience helper to ask the brain."""

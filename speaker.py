@@ -98,3 +98,5 @@ _speaker = Speaker()
 
 def speak(text: str):
     """Global function to speak text."""
+    _speaker.speak(text)
+
