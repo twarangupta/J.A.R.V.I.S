@@ -17,3 +17,4 @@ def speak(text):
     engine.runAndWait()
 
 
+recognizer = sr.Recognizer()

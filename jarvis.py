@@ -66,3 +66,6 @@ def main():
     wait_speaking()
 
     # 2. Initialize Wake Word Detector
+    try:
+        detector = WakeWordDetector()
+    except Exception as e:

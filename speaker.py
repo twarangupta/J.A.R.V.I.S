@@ -41,3 +41,5 @@ class Speaker:
             self.play_thread.join()
 
     def speak(self, text: str):
+        """
+        Speaks the given text aloud asynchronously in a background thread.

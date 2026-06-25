@@ -308,3 +308,18 @@ def execute_command(text: str) -> str | None:
     # 17. Empty Recycle Bin
     if "empty recycle bin" in clean_text or "clean the trash" in clean_text or "empty trash" in clean_text:
         try:
+            SHERB_NOCONFIRMATION = 0x00000001
+            SHERB_NOPROGRESSUI = 0x00000002
+            SHERB_NOSOUND = 0x00000004
+            ctypes.windll.shell32.SHEmptyRecycleBinW(None, None, SHERB_NOCONFIRMATION | SHERB_NOSOUND)
+            return "Recycle bin emptied, sir."
+        except Exception as e:
+            return f"Failed to empty recycle bin. Error: {e}"
+
+    # 18. Geo-Weather Reports
+    if "weather" in clean_text:
+        try:
+            req = urllib.request.Request(
+                "http://ip-api.com/json",
+                headers={'User-Agent': 'Mozilla/5.0'}
+            )

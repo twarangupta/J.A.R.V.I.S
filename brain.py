@@ -18,3 +18,4 @@ class Brain:
             {"role": "system", "content": self.system_prompt}
         ]
 
+    def ask(self, question: str) -> str:

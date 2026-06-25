@@ -1,3 +1,4 @@
 ollama>=0.6.2
 faster-whisper>=1.2.1
 openwakeword>=0.6.0
+pyttsx3>=2.99

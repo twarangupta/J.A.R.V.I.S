@@ -42,3 +42,5 @@ class AudioHandler:
 
     def read_chunk(self) -> np.ndarray:
         """
+        Reads a single chunk of audio from the stream.
+        Returns a numpy array of int16 samples.
