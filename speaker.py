@@ -90,3 +90,5 @@ class Speaker:
                 self.out_stream = None
         except Exception as e:
             pass
+        finally:
+            self.is_speaking = False

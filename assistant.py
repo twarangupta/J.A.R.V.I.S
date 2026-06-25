@@ -40,3 +40,4 @@ try:
         speak("I am Jarvis.")
 
     elif "thank you" in command:
+        speak("You're welcome.")

@@ -42,3 +42,4 @@ class Brain:
             # Do not append error message to history to keep it clean
             return "I am having trouble accessing my local cognitive models. Please verify Ollama is active."
 
+# Singleton instance

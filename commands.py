@@ -664,3 +664,17 @@ def read_root():
             return f"Failed to write file. Error: {e}"
 
     # 38. Local Code Reviewer
+    if "review my code" in clean_text or "code review" in clean_text:
+        try:
+            res = subprocess.run(["git", "diff"], capture_output=True, text=True, check=True)
+            diff = res.stdout.strip()
+            if not diff:
+                return "No changes detected in git, sir."
+            if len(diff) > 4000:
+                diff = diff[:4000] + "\n... [Diff truncated due to size]"
+            prompt = (
+                "You are a Senior Code Reviewer. Review the following git diff. "
+                "Find potential bugs, style issues, and performance bottlenecks. "
+                "Provide constructive feedback. Keep it brief.\n\n"
+                f"Git Diff:\n{diff}"
+            )

@@ -92,3 +92,6 @@ class AudioHandler:
                 silent_chunks = 0
             else:
                 if started_speaking:
+                    silent_chunks += 1
+                    if silent_chunks >= max_silent_chunks:
+                        # Finished speaking

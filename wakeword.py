@@ -37,3 +37,4 @@ class WakeWordDetector:
         # Get the latest prediction score
         score = self.model.prediction_buffer[self.model_key][-1]
         
+        if score >= WAKE_WORD_THRESHOLD:

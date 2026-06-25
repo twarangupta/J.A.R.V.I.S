@@ -27,3 +27,4 @@ WHISPER_LANGUAGE = "en"       # Lock speech detection to English to prevent hall
 WHISPER_VAD_FILTER = True     # Use Voice Activity Detection (VAD) to ignore silence/breathing
 
 # Text-to-Speech Settings (pyttsx3)
+VOICE_RATE = 170

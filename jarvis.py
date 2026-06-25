@@ -144,3 +144,6 @@ def main():
             if not transcription:
                 print("[No speech recognized]")
                 continue
+                
+            print(f"You: {transcription}")
+            
