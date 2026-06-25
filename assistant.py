@@ -36,3 +36,4 @@ try:
         current_time = datetime.now().strftime("%I:%M %p")
         speak(f"The time is {current_time}")
 
+    elif "your name" in command:

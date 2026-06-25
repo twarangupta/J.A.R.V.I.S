@@ -82,3 +82,5 @@ class Speaker:
                 if self.stop_playback.is_set():
                     break
                 if self.out_stream:
+                    self.out_stream.write(audio_bytes[i:i+chunk_size])
+            

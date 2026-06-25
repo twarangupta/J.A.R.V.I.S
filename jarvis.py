@@ -131,3 +131,6 @@ def main():
             print("[Transcribing...]")
             try:
                 segments, info = whisper_model.transcribe(
+                    audio_data,
+                    beam_size=5,
+                    language=WHISPER_LANGUAGE,

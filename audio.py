@@ -84,3 +84,5 @@ class AudioHandler:
             
             # Simple volume threshold check (using Root Mean Square or max amplitude)
             amplitude = np.max(np.abs(chunk))
+            
+            if amplitude > silence_threshold:

@@ -604,3 +604,18 @@ def execute_command(text: str) -> str | None:
                 return "No active docker containers are running, sir."
             return f"The running docker containers are: {', '.join(containers)}."
         except Exception as e:
+            return "Failed to query Docker. Ensure Docker Desktop is running."
+
+    # 35. Clipboard Developer Tools
+    if "format json" in clean_text or "prettify json" in clean_text or "pretty print json" in clean_text:
+        try:
+            import pyperclip
+            raw = pyperclip.paste().strip()
+            parsed = json.loads(raw)
+            pretty = json.dumps(parsed, indent=4)
+            pyperclip.copy(pretty)
+            return "JSON formatted and copied back to clipboard, sir."
+        except Exception as e:
+            return f"Failed to parse clipboard as JSON. Error: {e}"
+
+    # 36. Codebase Search

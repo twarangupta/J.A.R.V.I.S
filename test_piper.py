@@ -18,3 +18,4 @@ for chunk in voice.synthesize(text):
 print(f"Synthesized in {time.time() - start:.2f}s")
 
 # Convert bytes to numpy array
+audio_data = np.frombuffer(audio_bytes, dtype=np.int16)

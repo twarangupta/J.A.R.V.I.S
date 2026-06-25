@@ -33,3 +33,4 @@ class WakeWordDetector:
         """
         # Run prediction on the chunk
         self.model.predict(chunk)
+        
