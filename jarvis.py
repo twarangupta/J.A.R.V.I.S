@@ -11,3 +11,6 @@ import msvcrt
 import numpy as np
 from faster_whisper import WhisperModel
 from audio import audio_handler
+from wakeword import WakeWordDetector
+from brain import ask_ai, reset_brain
+from commands import execute_command

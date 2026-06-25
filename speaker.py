@@ -6,3 +6,5 @@ class Speaker:
     """
     Modular text-to-speech speaker class using local neural Piper TTS.
     Provides the premium, original-sounding J.A.R.V.I.S. voice.
+    Supports non-blocking background playback and instant interruption.
+    """

@@ -57,3 +57,18 @@ def execute_command(text: str) -> str | None:
     # 1. Open Chrome / Websites
     if is_open_request and ("chrome" in clean_text or "gmail" in clean_text or "youtube" in clean_text or "google" in clean_text or "github" in clean_text or "reddit" in clean_text or "stackoverflow" in clean_text):
         try:
+            # Map keywords to URLs
+            urls = {
+                "gmail": "https://gmail.com",
+                "youtube": "https://youtube.com",
+                "google": "https://google.com",
+                "github": "https://github.com",
+                "reddit": "https://reddit.com",
+                "stackoverflow": "https://stackoverflow.com"
+            }
+            
+            target_url = None
+            site_name = "Google Chrome"
+            for site, url in urls.items():
+                if site in clean_text:
+                    target_url = url

@@ -6,3 +6,5 @@ from config import SAMPLE_RATE, CHUNK_SIZE
 class AudioHandler:
     """
     Manages microphone input streams.
+    Provides methods to stream raw chunks for wake word detection,
+    and to record complete phrases with basic silence detection for Whisper.
