@@ -10,3 +10,4 @@ with sr.Microphone() as source:
     print("Recognizing...")
 
     text = recognizer.recognize_google(audio)
+

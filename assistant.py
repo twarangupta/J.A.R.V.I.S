@@ -46,3 +46,4 @@ try:
         speak("Sorry, I don't know how to respond to that yet.")
 
 except sr.UnknownValueError:
+    speak("Sorry, I couldn't understand you.")

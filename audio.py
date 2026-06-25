@@ -105,3 +105,5 @@ class AudioHandler:
             
         # Concatenate and convert to float32 normalized in [-1.0, 1.0]
         audio_data = np.concatenate(recorded_frames)
+        return audio_data.astype(np.float32) / 32768.0
+

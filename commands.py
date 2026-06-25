@@ -752,3 +752,18 @@ def read_root():
             task = "Coding Session"
             if "tracking" in clean_text:
                 parts = clean_text.split("tracking", 1)
+                if len(parts) > 1 and parts[1].strip():
+                    task = parts[1].replace(":", "").strip()
+            with open("time_tracker.json", "w", encoding="utf-8") as f:
+                json.dump({"task": task, "start_time": time.time()}, f)
+            return f"I've started tracking time for {task}, sir."
+        except Exception as e:
+            return f"Failed to start time tracker. Error: {e}"
+
+    if "stop tracking" in clean_text:
+        try:
+            tracker_path = "time_tracker.json"
+            if os.path.exists(tracker_path):
+                with open(tracker_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                task = data.get("task", "Coding Session")

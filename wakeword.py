@@ -42,3 +42,4 @@ class WakeWordDetector:
             return True
             
         return False
+

@@ -102,3 +102,5 @@ def speak(text: str):
 
 def stop_speaking():
     """Global function to stop playback."""
+    _speaker.stop()
+

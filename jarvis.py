@@ -163,3 +163,7 @@ def main():
                 ai_response = ask_ai(transcription)
                 interrupted = speak_and_interruptible(ai_response, detector)
                 
+            if interrupted:
+                print("[Speech interrupted by user]")
+                continue
+

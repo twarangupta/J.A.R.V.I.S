@@ -31,3 +31,4 @@ VOICE_RATE = 170
 VOICE_VOLUME = 1.0
 VOICE_INDEX = 0 # 0 for male, 1 for female (depends on system voices installed)
 
+# Audio Settings

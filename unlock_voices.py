@@ -52,3 +52,4 @@ def unlock():
         pass # No more voices
         
     winreg.CloseKey(src_root)
+    winreg.CloseKey(dest_root)
