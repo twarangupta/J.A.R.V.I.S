@@ -3,8 +3,15 @@ import os
 # Suppress Hugging Face symlink warning on Windows
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
+# Load environment variables from .env if python-dotenv is installed
+try:
+    from dotenv import load_dotenv  # type: ignore
+    load_dotenv()
+except ImportError:
+    pass
+
 # Ollama settings
-MODEL_NAME = "llama3.2:3b"
+MODEL_NAME = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 OLLAMA_SYSTEM_PROMPT = (
     "You are Jarvis, a highly advanced, intelligent, and slightly sarcastic AI assistant. "
     "Keep your answers short, concise, and helpful. Act like the JARVIS from Iron Man.\n\n"
@@ -33,24 +40,24 @@ OLLAMA_SYSTEM_PROMPT = (
 # Wake Word Settings
 # Default pre-trained model in openwakeword is 'hey_jarvis'.
 # Set to 'hey_jarvis' or path to custom trained 'daddy_s_home.tflite' model.
-WAKE_WORD_MODEL = "hey_jarvis" 
-WAKE_WORD_THRESHOLD = 0.2
+WAKE_WORD_MODEL = os.getenv("WAKE_WORD_MODEL", "hey_jarvis")
+WAKE_WORD_THRESHOLD = float(os.getenv("WAKE_WORD_THRESHOLD", "0.2"))
 
 # Sleep trigger phrase
-SLEEP_WORD = "go to sleep"
+SLEEP_WORD = os.getenv("SLEEP_WORD", "go to sleep")
 
 # Speech-to-Text Settings (Faster Whisper)
-WHISPER_MODEL_SIZE = "base"  # Options: tiny, base, small, medium, large-v3 or local folder path
-WHISPER_DEVICE = "cpu"        # GTX 1650 doesn't have PyTorch CUDA, so we use cpu
-WHISPER_COMPUTE_TYPE = "int8" # int8 is recommended for CPU speed when using small/medium models
-WHISPER_LANGUAGE = "en"       # Lock speech detection to English to prevent hallucinations from noise
-WHISPER_VAD_FILTER = True     # Use Voice Activity Detection (VAD) to ignore silence/breathing
+WHISPER_MODEL_SIZE = os.getenv("WHISPER_MODEL_SIZE", "base")  # Options: tiny, base, small, medium, large-v3 or local folder path
+WHISPER_DEVICE = os.getenv("WHISPER_DEVICE", "cpu")        # GTX 1650 doesn't have PyTorch CUDA, so we use cpu
+WHISPER_COMPUTE_TYPE = os.getenv("WHISPER_COMPUTE_TYPE", "int8") # int8 is recommended for CPU speed when using small/medium models
+WHISPER_LANGUAGE = os.getenv("WHISPER_LANGUAGE", "en")       # Lock speech detection to English to prevent hallucinations from noise
+WHISPER_VAD_FILTER = os.getenv("WHISPER_VAD_FILTER", "True").lower() in ("true", "1", "yes")
 
 # Text-to-Speech Settings (pyttsx3)
-VOICE_RATE = 170
-VOICE_VOLUME = 1.0
-VOICE_INDEX = 0 # 0 for male, 1 for female (depends on system voices installed)
+VOICE_RATE = int(os.getenv("VOICE_RATE", "170"))
+VOICE_VOLUME = float(os.getenv("VOICE_VOLUME", "1.0"))
+VOICE_INDEX = int(os.getenv("VOICE_INDEX", "0")) # 0 for male, 1 for female (depends on system voices installed)
 
 # Audio Settings
-SAMPLE_RATE = 16000 # Required by OpenWakeWord and Whisper
-CHUNK_SIZE = 1280    # 80ms chunk size for 16kHz audio
+SAMPLE_RATE = int(os.getenv("SAMPLE_RATE", "16000")) # Required by OpenWakeWord and Whisper
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "1280"))    # 80ms chunk size for 16kHz audio

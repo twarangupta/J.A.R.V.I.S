@@ -2,6 +2,7 @@ import os
 import numpy as np
 from openwakeword.model import Model
 from config import WAKE_WORD_MODEL, WAKE_WORD_THRESHOLD
+from logger import logger
 
 class WakeWordDetector:
     """
@@ -9,7 +10,7 @@ class WakeWordDetector:
     and detect the wake word.
     """
     def __init__(self):
-        print(f"Initializing OpenWakeWord with model: {WAKE_WORD_MODEL}")
+        logger.info(f"Initializing OpenWakeWord with model: {WAKE_WORD_MODEL}")
         
         # OpenWakeWord accepts file paths to custom models,
         # or names of built-in models (e.g. 'hey_jarvis')
@@ -24,7 +25,7 @@ class WakeWordDetector:
             
         # Get the internal key used to access prediction buffers
         self.model_key = list(self.model.models.keys())[0]
-        print(f"Wake word model loaded. Key name: {self.model_key}")
+        logger.info(f"Wake word model loaded. Key name: {self.model_key}")
 
     def is_wake_word(self, chunk: np.ndarray) -> bool:
         """
@@ -38,7 +39,7 @@ class WakeWordDetector:
         score = self.model.prediction_buffer[self.model_key][-1]
         
         if score >= WAKE_WORD_THRESHOLD:
-            print(f"\n[Wake Word Triggered] Confidence: {score:.2f}")
+            logger.info(f"Wake Word Triggered. Confidence: {score:.2f}")
             return True
             
         return False

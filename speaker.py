@@ -1,6 +1,8 @@
 import pyaudio
+import os
 import threading
 from piper.voice import PiperVoice
+from logger import logger
 
 class Speaker:
     """
@@ -10,16 +12,25 @@ class Speaker:
     """
     def __init__(self):
         try:
-            print("[TTS Initialization] Loading J.A.R.V.I.S. neural voice model...")
-            self.voice = PiperVoice.load("models/jarvis-high.onnx")
+            model_path = "models/jarvis-high.onnx"
+            if not os.path.exists(model_path):
+                logger.error(
+                    f"Voice model file not found at {model_path}. "
+                    "Please run 'python download_jarvis_voice.py' first to retrieve the neural voice models."
+                )
+                self.voice = None
+                return
+            
+            logger.info("Loading J.A.R.V.I.S. neural voice model...")
+            self.voice = PiperVoice.load(model_path)
             self.sample_rate = self.voice.config.sample_rate
             self.pa = pyaudio.PyAudio()
             self.play_thread = None
             self.stop_playback = threading.Event()
             self.is_speaking = False
-            print("[TTS Initialization] J.A.R.V.I.S. neural voice loaded successfully.")
+            logger.info("J.A.R.V.I.S. neural voice loaded successfully.")
         except Exception as e:
-            print(f"Error loading J.A.R.V.I.S. voice model: {e}")
+            logger.error(f"Error loading J.A.R.V.I.S. voice model: {e}")
             self.voice = None
 
     def stop(self):
@@ -62,7 +73,7 @@ class Speaker:
                 self.play_thread = threading.Thread(target=self._play_audio, args=(audio_bytes,))
                 self.play_thread.start()
             except Exception as e:
-                print(f"TTS Speech Error: {e}")
+                logger.error(f"TTS Speech Error: {e}")
                 self.is_speaking = False
         else:
             # Fallback (print only)
