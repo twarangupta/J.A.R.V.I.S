@@ -31,3 +31,4 @@ def unlock():
     
     try:
         src_root = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, one_core_path)
+    except Exception as e:

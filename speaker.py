@@ -61,3 +61,5 @@ class Speaker:
                 # Start playback in a background thread
                 self.play_thread = threading.Thread(target=self._play_audio, args=(audio_bytes,))
                 self.play_thread.start()
+            except Exception as e:
+                print(f"TTS Speech Error: {e}")

@@ -98,3 +98,7 @@ def main():
     while True:
         reset_brain() # Clear LLM context memory when entering sleep mode
         print("\n[Status: Sleeping] Standing by. Speak the wake word...")
+        
+        # Start continuous audio stream for wake word monitoring
+        audio_handler.start_stream()
+        

@@ -456,3 +456,18 @@ def execute_command(text: str) -> str | None:
     if "flip a coin" in clean_text or "toss a coin" in clean_text:
         return f"It is {random.choice(['Heads', 'Tails'])}, sir."
     if "roll a dice" in clean_text or "roll a die" in clean_text:
+        return f"It is a {random.randint(1, 6)}, sir."
+
+    # 26. Math Solver
+    if "calculate" in clean_text or "what is" in clean_text:
+        try:
+            expr = clean_text.replace("times", "*").replace("divided by", "/").replace("plus", "+").replace("minus", "-")
+            match = re.search(r"([\d\s\+\-\*\/\(\)\.]+)", expr)
+            if match:
+                math_expr = match.group(1).strip()
+                if re.match(r"^[\d\s\+\-\*\/\(\)\.]+$", math_expr):
+                    res = eval(math_expr)
+                    return f"The answer is {res}."
+        except Exception as e:
+            pass
+

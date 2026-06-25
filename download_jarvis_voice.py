@@ -14,3 +14,4 @@ def download_file(url, filepath):
             out_file.write(data)
         print("Success!")
     except Exception as e:
+        print(f"Error downloading {url}: {e}")

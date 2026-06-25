@@ -27,3 +27,4 @@ try:
     print("Recognizing...")
     command = recognizer.recognize_google(audio).lower()
 
+    print("You:", command)
