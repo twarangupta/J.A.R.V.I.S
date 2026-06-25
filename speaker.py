@@ -106,3 +106,5 @@ def stop_speaking():
 
 def wait_speaking():
     """Global function to wait for playback to finish."""
+    _speaker.wait()
+

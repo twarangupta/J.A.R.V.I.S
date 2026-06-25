@@ -44,3 +44,4 @@ class WakeWordDetector:
         return False
 
     def reset(self):
+        """Resets the model's prediction buffer and internal state."""

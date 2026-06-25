@@ -782,3 +782,18 @@ def read_root():
 
     # 42. Focus / Meeting Mode
     if "meeting mode" in clean_text or "focus mode" in clean_text:
+        try:
+            devices = AudioUtilities.GetSpeakers()
+            interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+            volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
+            volume.SetMute(1, None)
+            VK_LWIN = 0x5B
+            VK_M = 0x4D
+            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(VK_M, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(VK_M, 0, 2, 0)
+            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 2, 0)
+            return "Meeting mode activated. Master audio muted and windows minimized, sir."
+        except Exception as e:
+            return f"Failed to activate meeting mode. Error: {e}"
+

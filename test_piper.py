@@ -24,3 +24,4 @@ audio_data = np.frombuffer(audio_bytes, dtype=np.int16)
 sample_rate = voice.config.sample_rate
 print(f"Playing at sample rate: {sample_rate}Hz...")
 sd.play(audio_data, sample_rate)
+sd.wait()

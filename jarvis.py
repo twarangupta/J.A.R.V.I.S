@@ -170,3 +170,6 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except KeyboardInterrupt:
+        print("\nShutdown signal received. Jarvis going offline.")
+        stop_speaking()

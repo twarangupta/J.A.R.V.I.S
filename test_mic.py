@@ -34,3 +34,4 @@ except KeyboardInterrupt:
     print("\nStopping...")
 finally:
     stream.stop_stream()
+    stream.close()

@@ -109,3 +109,5 @@ class AudioHandler:
 
     def terminate(self):
         """Clean up PyAudio resource."""
+        self.stop_stream()
+        self.pa.terminate()
