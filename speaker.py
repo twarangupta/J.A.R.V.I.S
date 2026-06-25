@@ -18,3 +18,5 @@ class Speaker:
             self.stop_playback = threading.Event()
             self.is_speaking = False
             print("[TTS Initialization] J.A.R.V.I.S. neural voice loaded successfully.")
+        except Exception as e:
+            print(f"Error loading J.A.R.V.I.S. voice model: {e}")

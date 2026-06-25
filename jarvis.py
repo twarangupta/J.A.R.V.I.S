@@ -30,3 +30,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     audio_handler.start_stream()
     
     interrupted = False
+    chunks_count = 0
+    try:
+        while is_speaking():

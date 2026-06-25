@@ -7,3 +7,4 @@ class Brain:
     Maintains dialogue history to support continuous conversational context.
     """
     def __init__(self):
+        self.model = MODEL_NAME

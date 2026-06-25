@@ -19,3 +19,5 @@ class AudioHandler:
             self.stop_stream()
             
         try:
+            self.stream = self.pa.open(
+                format=pyaudio.paInt16,

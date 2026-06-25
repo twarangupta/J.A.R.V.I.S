@@ -146,3 +146,17 @@ def execute_command(text: str) -> str | None:
 
     # 9. Restart PC
     if "restart" in clean_text or "restart my computer" in clean_text:
+        # Schedule restart in 5 seconds
+        os.system("shutdown /r /t 5")
+        return "Restarting the system in 5 seconds."
+
+    # 10. Lock PC
+    if "lock pc" in clean_text or "lock computer" in clean_text or "lock the pc" in clean_text:
+        try:
+            os.system("rundll32.exe user32.dll,LockWorkStation")
+            return "Locking the workstation."
+        except Exception as e:
+            return f"Failed to lock the workstation. Error: {e}"
+
+    # 11. Open Docker Desktop
+    if is_open_request and ("docker desktop" in clean_text or "docker" in clean_text):

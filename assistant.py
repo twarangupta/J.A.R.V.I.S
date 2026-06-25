@@ -7,3 +7,4 @@ engine = pyttsx3.init()
 
 # Select voice (0 = Zira, 1 = Hazel)
 voices = engine.getProperty("voices")
+engine.setProperty("voice", voices[0].id)
