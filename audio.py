@@ -23,3 +23,5 @@ class AudioHandler:
                 format=pyaudio.paInt16,
                 channels=1,
                 rate=SAMPLE_RATE,
+                input=True,
+                frames_per_buffer=CHUNK_SIZE

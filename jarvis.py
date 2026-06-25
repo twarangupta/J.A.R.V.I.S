@@ -37,3 +37,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
             if msvcrt.kbhit():
                 msvcrt.getch() # Clear the keypress
                 stop_speaking()
+                interrupted = True
+                print("\n[Speech interrupted by keyboard]")
+                break

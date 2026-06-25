@@ -22,3 +22,5 @@ class Speaker:
             print(f"Error loading J.A.R.V.I.S. voice model: {e}")
             self.voice = None
 
+    def stop(self):
+        """Instantly stops any ongoing playback."""

@@ -175,3 +175,18 @@ def execute_command(text: str) -> str | None:
     if "status report" in clean_text or "system status" in clean_text or "telemetry" in clean_text:
         try:
             cpu_usage = psutil.cpu_percent()
+            memory_info = psutil.virtual_memory()
+            mem_usage = memory_info.percent
+            battery = psutil.sensors_battery()
+            if battery:
+                percent = battery.percent
+                charging = battery.power_plugged
+                plugged_status = "and charging" if charging else "and discharging"
+                battery_str = f", and your battery is at {percent} percent {plugged_status}"
+            else:
+                battery_str = ""
+            return f"Sir, CPU load is at {cpu_usage} percent, memory utilization is at {mem_usage} percent{battery_str}."
+        except Exception as e:
+            return f"Failed to retrieve system status. Error: {e}"
+
+    # 13. Instant Screenshot Capture
