@@ -21,3 +21,4 @@ def copy_key(src_key, dest_key):
             copy_key(src_subkey, dest_subkey)
             winreg.CloseKey(src_subkey)
             winreg.CloseKey(dest_subkey)
+            i += 1

@@ -69,3 +69,6 @@ def main():
     try:
         detector = WakeWordDetector()
     except Exception as e:
+        print(f"Failed to initialize Wake Word Detector: {e}")
+        speak("Error loading wake word engine. Exiting.")
+        wait_speaking()

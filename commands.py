@@ -323,3 +323,18 @@ def execute_command(text: str) -> str | None:
                 "http://ip-api.com/json",
                 headers={'User-Agent': 'Mozilla/5.0'}
             )
+            with urllib.request.urlopen(req) as response:
+                loc_data = json.loads(response.read().decode())
+                lat = loc_data.get("lat", 0)
+                lon = loc_data.get("lon", 0)
+                city = loc_data.get("city", "your location")
+                
+            weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            with urllib.request.urlopen(weather_url) as w_response:
+                w_data = json.loads(w_response.read().decode())
+                temp = w_data["current_weather"]["temperature"]
+                return f"In {city}, it is currently {temp} degrees Celsius."
+        except Exception as e:
+            return "I am currently unable to fetch the weather telemetry, sir."
+
+    # 19. Active Window Controls

@@ -44,3 +44,5 @@ class AudioHandler:
         """
         Reads a single chunk of audio from the stream.
         Returns a numpy array of int16 samples.
+        """
+        try:

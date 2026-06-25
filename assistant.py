@@ -18,3 +18,4 @@ def speak(text):
 
 
 recognizer = sr.Recognizer()
+

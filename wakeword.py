@@ -17,3 +17,4 @@ class WakeWordDetector:
             # If a custom path is specified, let openwakeword determine the framework or force onnx
             if WAKE_WORD_MODEL.endswith(".onnx"):
                 self.model = Model(wakeword_models=[WAKE_WORD_MODEL], inference_framework="onnx")
+            else:
