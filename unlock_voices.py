@@ -23,3 +23,4 @@ def copy_key(src_key, dest_key):
             winreg.CloseKey(dest_subkey)
             i += 1
     except OSError:
+        pass # No more subkeys

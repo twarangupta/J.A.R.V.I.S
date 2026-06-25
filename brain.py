@@ -21,3 +21,4 @@ class Brain:
     def ask(self, question: str) -> str:
         """
         Sends the question along with context history to the local Ollama instance
+        and returns the AI's spoken response.

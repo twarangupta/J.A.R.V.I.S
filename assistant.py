@@ -20,3 +20,4 @@ def speak(text):
 recognizer = sr.Recognizer()
 
 with sr.Microphone() as source:
+    print("Listening...")

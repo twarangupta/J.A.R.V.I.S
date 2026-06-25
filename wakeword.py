@@ -18,3 +18,4 @@ class WakeWordDetector:
             if WAKE_WORD_MODEL.endswith(".onnx"):
                 self.model = Model(wakeword_models=[WAKE_WORD_MODEL], inference_framework="onnx")
             else:
+                self.model = Model(wakeword_models=[WAKE_WORD_MODEL])

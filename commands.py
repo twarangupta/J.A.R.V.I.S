@@ -353,3 +353,18 @@ def execute_command(text: str) -> str | None:
     if "minimize window" in clean_text or "minimize this window" in clean_text:
         try:
             VK_LWIN = 0x5B  # Left Win key
+            VK_DOWN = 0x28  # Down arrow
+            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(VK_DOWN, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(VK_DOWN, 0, 2, 0)
+            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 2, 0)
+            return "Minimizing active window."
+        except Exception as e:
+            return f"Failed to minimize window. Error: {e}"
+
+    # 20. Power Estimator
+    if "battery" in clean_text or "power percentage" in clean_text:
+        try:
+            battery = psutil.sensors_battery()
+            if battery:
+                percent = battery.percent

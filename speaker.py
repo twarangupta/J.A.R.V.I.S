@@ -47,3 +47,5 @@ class Speaker:
         self.stop()
         self.stop_playback.clear()
         print(f"\n[Jarvis]: {text}\n")
+        
+        if self.voice:

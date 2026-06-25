@@ -48,3 +48,5 @@ class AudioHandler:
         try:
             if self.stream is None or not self.stream.is_active():
                 self.start_stream()
+        except OSError:
+            self.stream = None

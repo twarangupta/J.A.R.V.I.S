@@ -76,3 +76,6 @@ def main():
 
     # 3. Initialize Faster-Whisper
     speak("Loading speech recognition models.")
+    wait_speaking()
+    print(f"Loading Faster-Whisper '{WHISPER_MODEL_SIZE}' model on '{WHISPER_DEVICE}' ({WHISPER_COMPUTE_TYPE})...")
+    try:

@@ -13,3 +13,4 @@ OLLAMA_SYSTEM_PROMPT = (
 # Wake Word Settings
 # Default pre-trained model in openwakeword is 'hey_jarvis'.
 # Set to 'hey_jarvis' or path to custom trained 'daddy_s_home.tflite' model.
+WAKE_WORD_MODEL = "hey_jarvis" 
