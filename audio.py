@@ -50,3 +50,5 @@ class AudioHandler:
                 self.start_stream()
         except OSError:
             self.stream = None
+            self.start_stream()
+            

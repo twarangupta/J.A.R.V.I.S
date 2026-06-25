@@ -79,3 +79,6 @@ def main():
     wait_speaking()
     print(f"Loading Faster-Whisper '{WHISPER_MODEL_SIZE}' model on '{WHISPER_DEVICE}' ({WHISPER_COMPUTE_TYPE})...")
     try:
+        whisper_model = WhisperModel(
+            WHISPER_MODEL_SIZE,
+            device=WHISPER_DEVICE,

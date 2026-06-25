@@ -11,3 +11,4 @@ def download_file(url, filepath):
         )
         with urllib.request.urlopen(req) as response, open(filepath, 'wb') as out_file:
             data = response.read()
+            out_file.write(data)

@@ -368,3 +368,17 @@ def execute_command(text: str) -> str | None:
             battery = psutil.sensors_battery()
             if battery:
                 percent = battery.percent
+                secs = battery.secsleft
+                plugged = battery.power_plugged
+                
+                if plugged:
+                   return f"Sir, the battery is at {percent} percent and charging."
+                elif secs == psutil.POWER_TIME_UNLIMITED:
+                   return f"Sir, the battery is at {percent} percent and plugged in."
+                elif secs == psutil.POWER_TIME_UNKNOWN:
+                   return f"Sir, the battery is at {percent} percent, time remaining is calculating."
+                else:
+                   hours = secs // 3600
+                   mins = (secs % 3600) // 60
+                   return f"Sir, the battery is at {percent} percent with {hours} hours and {mins} minutes remaining."
+            else:

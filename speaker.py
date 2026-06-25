@@ -49,3 +49,5 @@ class Speaker:
         print(f"\n[Jarvis]: {text}\n")
         
         if self.voice:
+            try:
+                # Generate audio bytes
