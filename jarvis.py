@@ -115,3 +115,6 @@ def main():
         
         # Greeting (interruptible)
         interrupted = speak_and_interruptible("Systems online. How can I help you, sir?", detector)
+        
+        # Conversation loop
+        while True:

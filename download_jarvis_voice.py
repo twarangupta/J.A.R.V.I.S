@@ -17,3 +17,4 @@ def download_file(url, filepath):
         print(f"Error downloading {url}: {e}")
 
 def main():
+    model_dir = "models"

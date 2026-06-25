@@ -71,3 +71,6 @@ class Speaker:
     def _play_audio(self, audio_bytes: bytes):
         try:
             self.out_stream = self.pa.open(
+                format=pyaudio.paInt16,
+                channels=1,
+                rate=self.sample_rate,

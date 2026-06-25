@@ -530,3 +530,18 @@ def execute_command(text: str) -> str | None:
 
     # 31. Reminders Core
     if "remind me in" in clean_text or "set a reminder" in clean_text:
+        try:
+            match = re.search(r"remind me in (\d+)\s*(second|minute|hour)\s+to\s+(.*)", clean_text)
+            if match:
+                dur = int(match.group(1))
+                unit = match.group(2)
+                task = match.group(3)
+                secs = dur
+                if "minute" in unit:
+                    secs *= 60
+                elif "hour" in unit:
+                    secs *= 3600
+                
+                import threading
+                from speaker import speak
+                def run_reminder(s, t):
