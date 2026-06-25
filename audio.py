@@ -40,3 +40,5 @@ class AudioHandler:
                 print(f"[Audio Error] Error closing stream: {e}")
             self.stream = None
 
+    def read_chunk(self) -> np.ndarray:
+        """

@@ -17,3 +17,4 @@ class Brain:
         self.history = [
             {"role": "system", "content": self.system_prompt}
         ]
+

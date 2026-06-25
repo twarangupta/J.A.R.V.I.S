@@ -39,3 +39,5 @@ class Speaker:
         """Blocks until current speech is finished."""
         if self.play_thread and self.play_thread.is_alive():
             self.play_thread.join()
+
+    def speak(self, text: str):

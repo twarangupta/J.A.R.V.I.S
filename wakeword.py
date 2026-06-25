@@ -15,3 +15,4 @@ class WakeWordDetector:
         # or names of built-in models (e.g. 'hey_jarvis')
         if os.path.exists(WAKE_WORD_MODEL):
             # If a custom path is specified, let openwakeword determine the framework or force onnx
+            if WAKE_WORD_MODEL.endswith(".onnx"):

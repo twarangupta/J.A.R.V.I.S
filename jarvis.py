@@ -63,3 +63,6 @@ def main():
     
     # 1. Initialize text-to-speech speaker
     speak("Initializing system protocols.")
+    wait_speaking()
+
+    # 2. Initialize Wake Word Detector

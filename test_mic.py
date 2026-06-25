@@ -11,3 +11,4 @@ for i in range(pa.get_device_count()):
     if info.get('maxInputChannels') > 0:
         print(f"Index {i}: {info.get('name')} (Channels: {info.get('maxInputChannels')})")
 
+default_device = pa.get_default_input_device_info()

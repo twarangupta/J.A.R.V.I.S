@@ -294,3 +294,17 @@ def execute_command(text: str) -> str | None:
             if "increase" in clean_text or "raise" in clean_text or "up" in clean_text:
                 current_val = volume.GetMasterVolumeLevelScalar()
                 new_val = min(1.0, current_val + 0.1)
+                volume.SetMasterVolumeLevelScalar(new_val, None)
+                return f"Volume increased to {int(new_val * 100)} percent, sir."
+                
+            if "decrease" in clean_text or "lower" in clean_text or "down" in clean_text:
+                current_val = volume.GetMasterVolumeLevelScalar()
+                new_val = max(0.0, current_val - 0.1)
+                volume.SetMasterVolumeLevelScalar(new_val, None)
+                return f"Volume decreased to {int(new_val * 100)} percent, sir."
+        except Exception as e:
+            return f"Failed to adjust volume. Error: {e}"
+
+    # 17. Empty Recycle Bin
+    if "empty recycle bin" in clean_text or "clean the trash" in clean_text or "empty trash" in clean_text:
+        try:
