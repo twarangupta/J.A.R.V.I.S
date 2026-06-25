@@ -18,3 +18,4 @@ def copy_key(src_key, dest_key):
             subkey_name = winreg.EnumKey(src_key, i)
             src_subkey = winreg.OpenKey(src_key, subkey_name)
             dest_subkey = winreg.CreateKey(dest_key, subkey_name)
+            copy_key(src_subkey, dest_subkey)

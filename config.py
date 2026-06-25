@@ -10,3 +10,4 @@ OLLAMA_SYSTEM_PROMPT = (
     "Keep your answers short, concise, and helpful. Act like the JARVIS from Iron Man."
 )
 
+# Wake Word Settings

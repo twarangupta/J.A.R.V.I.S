@@ -279,3 +279,18 @@ def execute_command(text: str) -> str | None:
             elif "mute" in clean_text:
                 volume.SetMute(1, None)
                 return "Audio muted, sir."
+                
+            # Check for specific percentage
+            match = re.search(r"(\d+)\s*%", clean_text)
+            if not match:
+                match = re.search(r"volume\s*(?:to\s*)?(\d+)", clean_text)
+                
+            if match:
+                val = int(match.group(1))
+                val = max(0, min(100, val))
+                volume.SetMasterVolumeLevelScalar(val / 100.0, None)
+                return f"Volume set to {val} percent, sir."
+                
+            if "increase" in clean_text or "raise" in clean_text or "up" in clean_text:
+                current_val = volume.GetMasterVolumeLevelScalar()
+                new_val = min(1.0, current_val + 0.1)

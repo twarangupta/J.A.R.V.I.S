@@ -16,3 +16,4 @@ class Brain:
         """Resets conversational memory and injects the system prompt."""
         self.history = [
             {"role": "system", "content": self.system_prompt}
+        ]

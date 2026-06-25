@@ -59,3 +59,7 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
 def main():
     print("=" * 50)
     print("                JARVIS INITIALIZATION                ")
+    print("=" * 50)
+    
+    # 1. Initialize text-to-speech speaker
+    speak("Initializing system protocols.")

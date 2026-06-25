@@ -38,3 +38,5 @@ class AudioHandler:
                 self.stream.close()
             except Exception as e:
                 print(f"[Audio Error] Error closing stream: {e}")
+            self.stream = None
+
