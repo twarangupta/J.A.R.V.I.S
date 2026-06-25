@@ -161,7 +161,26 @@ def main():
             else:
                 # Query Ollama Brain
                 ai_response = ask_ai(transcription)
-                interrupted = speak_and_interruptible(ai_response, detector)
+                
+                # Check for AI-routed command tag
+                import re
+                match = re.search(r"COMMAND:\s*([a-zA-Z0-9_\-\s]+)", ai_response, re.IGNORECASE)
+                if match:
+                    extracted_cmd = match.group(1).strip()
+                    # Clean the speech reply by removing the command block
+                    natural_reply = re.sub(r"[`\[]*[^`\[]*COMMAND:\s*[^\]`]+[\]`]*", "", ai_response, flags=re.IGNORECASE).strip()
+                    
+                    print(f"[AI Command Routed] Executing extracted command: '{extracted_cmd}'")
+                    cmd_res = execute_command(extracted_cmd)
+                    
+                    # If the command returned an error or failure, speak the failure message
+                    if cmd_res and ("failed" in cmd_res.lower() or "error" in cmd_res.lower() or "unable" in cmd_res.lower()):
+                        interrupted = speak_and_interruptible(cmd_res, detector)
+                    else:
+                        speech_text = natural_reply if natural_reply else (cmd_res if cmd_res else "Command executed, sir.")
+                        interrupted = speak_and_interruptible(speech_text, detector)
+                else:
+                    interrupted = speak_and_interruptible(ai_response, detector)
                 
             if interrupted:
                 print("[Speech interrupted by user]")

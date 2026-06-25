@@ -1,0 +1,181 @@
+================================================================================
+                         JARVIS VOICE COMMANDS DIRECTORY
+================================================================================
+
+This document lists all the built-in system, media, development, and utility commands
+available in Jarvis, along with their matching trigger words and expected behaviors.
+
+--------------------------------------------------------------------------------
+1. SYSTEM & GENERAL UTILITIES
+--------------------------------------------------------------------------------
+- Time Lookup
+  * Voice Triggers: "tell me the time", "what time is it", "current time", "what is the time"
+  * Behavior: Speaks the current local time in AM/PM format.
+- Date Lookup
+  * Voice Triggers: "tell me the date", "what's the date", "current date", "what is the date"
+  * Behavior: Speaks today's date (Month, Day, Year).
+- Lock Computer
+  * Voice Triggers: "lock pc", "lock computer", "lock the pc"
+  * Behavior: Immediately locks the Windows workstation screen.
+- Shutdown Computer
+  * Voice Triggers: "shutdown", "shut down my computer"
+  * Behavior: Schedules and triggers a full computer shutdown in 5 seconds.
+- Restart Computer
+  * Voice Triggers: "restart", "restart my computer"
+  * Behavior: Schedules and triggers a full system reboot in 5 seconds.
+- Screenshot Capture
+  * Voice Triggers: "take a screenshot", "capture screen", "screenshot"
+  * Behavior: Grabs the full screen, saves the PNG file to the Desktop, and opens it.
+- Disk Space Analyzer
+  * Voice Triggers: "check storage", "disk space", "hard drive space"
+  * Behavior: Checks the C: drive and reports free and total gigabytes available.
+- Empty Recycle Bin
+  * Voice Triggers: "empty recycle bin", "clean the trash", "empty trash"
+  * Behavior: Silently purges all items inside the Windows Recycle Bin.
+- Battery Telemetry
+  * Voice Triggers: "battery", "power percentage", "system status"
+  * Behavior: Reports current battery charge percentage, charging state, and remaining hours.
+
+--------------------------------------------------------------------------------
+2. FILE SYSTEM & APP LAUNCHERS
+--------------------------------------------------------------------------------
+- Open Google Chrome & Web Pages
+  * Voice Triggers: "open chrome", "open gmail", "open youtube", "open github", "open reddit", "open stackoverflow"
+  * Behavior: Launches Google Chrome pointing to the designated website.
+- Google Search
+  * Voice Triggers: "search for <query>", "google for <query>", "search <query>"
+  * Behavior: Opens Chrome and executes a Google Search for the parsed query.
+- Open VS Code
+  * Voice Triggers: "open vs code", "open vscode", "open visual studio code"
+  * Behavior: Launches Visual Studio Code in the current workspace.
+- Open Spotify
+  * Voice Triggers: "open spotify"
+  * Behavior: Starts the local Spotify application.
+- Open Notepad
+  * Voice Triggers: "open notepad"
+  * Behavior: Launches a new instance of Windows Notepad.
+- Open Calculator
+  * Voice Triggers: "open calculator", "open calc"
+  * Behavior: Launches the Windows calculator.
+- Open Docker Desktop
+  * Voice Triggers: "open docker desktop", "open docker"
+  * Behavior: Launches the Docker Desktop application.
+- Organize Downloads Folder
+  * Voice Triggers: "organize my downloads", "organize downloads"
+  * Behavior: Scans the user's Downloads directory and moves files into organized folders (Documents, Images, Installers, Audio, Video, Archives) based on extensions.
+- Project Workspace Launcher
+  * Voice Triggers: "start project <name>", "launch project <name>"
+  * Behavior: Starts VS Code and opens Github in Chrome to launch development workflow.
+
+--------------------------------------------------------------------------------
+3. MEDIA & VOLUME CONTROL
+--------------------------------------------------------------------------------
+- Audio Volume Adjustments
+  * Voice Triggers: "volume <number> percent", "volume to <number>", "volume up/increase/raise", "volume down/decrease/lower"
+  * Behavior: Directly controls Windows speaker volume level or increments/decrements it by 10%.
+- Audio Mute / Unmute
+  * Voice Triggers: "mute", "unmute"
+  * Behavior: Mutes or restores master system audio.
+- Media Controls
+  * Voice Triggers: "play music", "resume music", "pause music", "pause", "next song", "skip song", "previous song", "stop music"
+  * Behavior: Emulates media keys to toggle playback, skip tracks, go back, or stop audio.
+- Focus / Meeting Mode
+  * Voice Triggers: "meeting mode", "focus mode"
+  * Behavior: Mutes system audio and minimizes all active application windows.
+
+--------------------------------------------------------------------------------
+4. GIT ASSISTANT COMMANDS (AI Router Fallback Supported)
+--------------------------------------------------------------------------------
+- Git Status
+  * Voice Triggers: "git status", "get status", "check status"
+  * Behavior: Lists the number of modified/untracked files in the current repository.
+- Git Commit
+  * Voice Triggers: "git commit", "commit my changes", "git check in"
+  * Behavior: Stages all local changes and commits them with an automated timestamp message.
+- Git Push
+  * Voice Triggers: "git push", "push changes", "push my changes"
+  * Behavior: Identifies the active branch and pushes local commits to the remote origin repository.
+- Git Pull
+  * Voice Triggers: "git pull", "pull changes", "pull from remote"
+  * Behavior: Syncs and pulls the latest commits from the remote repository to the local branch.
+- Git Stash
+  * Voice Triggers: "git stash", "stash changes", "stash my changes"
+  * Behavior: Saves local modifications and leaves the working directory clean.
+- Git Stash Pop
+  * Voice Triggers: "git stash pop", "pop stash", "apply stash"
+  * Behavior: Restores the latest stashed changes back into the working directory.
+- Check Merge Conflicts
+  * Voice Triggers: "git conflicts", "merge conflicts", "check conflicts"
+  * Behavior: Lists files with active unmerged conflict markers (`<<<<<<<`).
+- Git Log / History
+  * Voice Triggers: "git log", "show commits", "git history"
+  * Behavior: Reads out the last 5 commit hashes and messages on the current branch.
+- Switch Git Branch
+  * Voice Triggers: "switch branch to <branch>", "checkout branch <branch>"
+  * Behavior: Executes checkout to switch the workspace to the specified branch.
+- List Git Branches
+  * Voice Triggers: "git branch", "show branches", "list branches"
+  * Behavior: Lists local branches and highlights which branch is currently active.
+
+--------------------------------------------------------------------------------
+5. DEVELOPER TOOLS & HELPER UTILITIES
+--------------------------------------------------------------------------------
+- Port & Process Checker
+  * Voice Triggers: "check port <number>", "what's on port <number>", "kill port <number>"
+  * Behavior: Finds the PID listening on a specific port and terminates the process if "kill" is specified.
+- Docker Status
+  * Voice Triggers: "check docker", "docker status"
+  * Behavior: Queries and lists active running Docker containers.
+- Clipboard JSON Formatter
+  * Voice Triggers: "format json", "prettify json", "pretty print json"
+  * Behavior: Reads raw JSON string from your clipboard, formats/indents it, and copies it back.
+- Codebase Search
+  * Voice Triggers: "search codebase for <term>", "search code for <term>"
+  * Behavior: Scans files in the workspace (excluding virtual environments) and lists matching lines.
+- Boilerplate Creator
+  * Voice Triggers: "create fastapi", "fastapi boilerplate"
+  * Behavior: Generates a starter `main.py` FastAPI implementation.
+- Automated Code Review
+  * Voice Triggers: "review my code", "code review"
+  * Behavior: Runs `git diff` on unstaged changes, submits them to the local AI, and writes a review report to `code_review.md`.
+- Test Suite Generator
+  * Voice Triggers: "write a unit test for <file>", "generate test for <file>"
+  * Behavior: Submits the selected source code file to the LLM to generate tests, saved as `test_<filename>.py`.
+- Clipboard Reader
+  * Voice Triggers: "read my clipboard", "read clipboard"
+  * Behavior: Reads out the first 150 characters of text currently held in the system clipboard.
+
+--------------------------------------------------------------------------------
+6. CONVERSATIONAL & RECREATIONAL COMMANDS
+--------------------------------------------------------------------------------
+- Voice Scratchpad / Notes
+  * Voice Triggers: "write a note to <text>", "save a note that <text>"
+  * Behavior: Appends notes with timestamps into `notes.md`.
+- Read Notes
+  * Voice Triggers: "read my notes", "read notes"
+  * Behavior: Reads out the last 3 logged notes.
+- Timers & Reminders
+  * Voice Triggers: "timer for <duration> <unit>", "remind me in <duration> <unit> to <task>"
+  * Behavior: Spawns background timers/reminders that alert you verbally when they expire.
+- Math Evaluator
+  * Voice Triggers: "calculate <expression>", "what is <expression>"
+  * Behavior: Solves basic mathematical arithmetic strings.
+- IP Configuration Lookups
+  * Voice Triggers: "my ip address", "what's my ip"
+  * Behavior: Looks up and reads local and public IP details.
+- NATO Spelling Aid
+  * Voice Triggers: "spell <word>"
+  * Behavior: Spells out a word character-by-character using the standard NATO phonetic alphabet.
+- Fun Utilities
+  * Voice Triggers: "flip a coin", "toss a coin", "roll a dice"
+  * Behavior: Provides heads/tails or dice rolling results.
+- Weather Telemetry
+  * Voice Triggers: "weather"
+  * Behavior: Fetches local weather conditions based on your IP location.
+- Joke Teller
+  * Voice Triggers: "tell me a joke", "joke"
+  * Behavior: Shares a random developer joke.
+- Go to Sleep
+  * Voice Triggers: "go to sleep"
+  * Behavior: Stops active listening, clears LLM brain memory, and waits silently for the wake word.
+================================================================================
