@@ -33,3 +33,5 @@ class AudioHandler:
     def stop_stream(self):
         """Stops and closes the microphone stream."""
         if self.stream:
+            try:
+                self.stream.stop_stream()

@@ -53,3 +53,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
                     break
     finally:
         audio_handler.stop_stream()
+        
+    return interrupted
+

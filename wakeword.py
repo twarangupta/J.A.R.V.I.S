@@ -12,3 +12,4 @@ class WakeWordDetector:
         print(f"Initializing OpenWakeWord with model: {WAKE_WORD_MODEL}")
         
         # OpenWakeWord accepts file paths to custom models,
+        # or names of built-in models (e.g. 'hey_jarvis')

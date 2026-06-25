@@ -249,3 +249,18 @@ def execute_command(text: str) -> str | None:
     VK_MEDIA_PREV_TRACK = 0xB1
     VK_MEDIA_STOP = 0xB2
     
+    def press_media_key(vk_code):
+        ctypes.windll.user32.keybd_event(vk_code, 0, 0, 0)
+        ctypes.windll.user32.keybd_event(vk_code, 0, 2, 0) # Key Up
+
+    if "play music" in clean_text or "resume music" in clean_text or "pause music" in clean_text or "pause" in clean_text:
+        press_media_key(VK_MEDIA_PLAY_PAUSE)
+        return "Media playback toggled, sir."
+    if "next song" in clean_text or "next track" in clean_text or "skip song" in clean_text:
+        press_media_key(VK_MEDIA_NEXT_TRACK)
+        return "Playing next track."
+    if "previous song" in clean_text or "previous track" in clean_text or "go back a song" in clean_text:
+        press_media_key(VK_MEDIA_PREV_TRACK)
+        return "Playing previous track."
+    if "stop music" in clean_text or "stop playback" in clean_text:
+        press_media_key(VK_MEDIA_STOP)

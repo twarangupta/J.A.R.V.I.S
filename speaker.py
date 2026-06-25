@@ -32,3 +32,5 @@ class Speaker:
             except:
                 pass
             self.out_stream = None
+        if self.play_thread and self.play_thread.is_alive():
+            self.play_thread.join()

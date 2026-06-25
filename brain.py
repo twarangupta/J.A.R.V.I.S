@@ -14,3 +14,4 @@ class Brain:
 
     def reset_conversation(self):
         """Resets conversational memory and injects the system prompt."""
+        self.history = [
