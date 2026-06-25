@@ -53,3 +53,4 @@ def unlock():
         
     winreg.CloseKey(src_root)
     winreg.CloseKey(dest_root)
+    print("OneCore voices unlocked successfully under user registry!")

@@ -49,3 +49,4 @@ def ask_ai(question: str) -> str:
     """Convenience helper to ask the brain."""
     return brain.ask(question)
 
+def reset_brain():

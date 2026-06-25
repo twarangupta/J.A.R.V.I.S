@@ -167,3 +167,6 @@ def main():
                 print("[Speech interrupted by user]")
                 continue
 
+if __name__ == "__main__":
+    try:
+        main()

@@ -104,3 +104,5 @@ def stop_speaking():
     """Global function to stop playback."""
     _speaker.stop()
 
+def wait_speaking():
+    """Global function to wait for playback to finish."""

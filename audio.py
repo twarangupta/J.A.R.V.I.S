@@ -107,3 +107,5 @@ class AudioHandler:
         audio_data = np.concatenate(recorded_frames)
         return audio_data.astype(np.float32) / 32768.0
 
+    def terminate(self):
+        """Clean up PyAudio resource."""

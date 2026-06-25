@@ -43,3 +43,4 @@ class WakeWordDetector:
             
         return False
 
+    def reset(self):

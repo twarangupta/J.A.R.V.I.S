@@ -767,3 +767,18 @@ def read_root():
                 with open(tracker_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 task = data.get("task", "Coding Session")
+                start_time = data.get("start_time", time.time())
+                elapsed = time.time() - start_time
+                os.remove(tracker_path)
+                hours = int(elapsed // 3600)
+                mins = int((elapsed % 3600) // 60)
+                with open("timesheet.csv", "a", encoding="utf-8") as f:
+                    f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')},{task},{hours}h {mins}m\n")
+                return f"Tracking stopped for {task}. Total time elapsed: {hours} hours and {mins} minutes."
+            else:
+                return "No active time tracking session found, sir."
+        except Exception as e:
+            return f"Failed to stop tracker. Error: {e}"
+
+    # 42. Focus / Meeting Mode
+    if "meeting mode" in clean_text or "focus mode" in clean_text:
