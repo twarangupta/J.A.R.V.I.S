@@ -575,6 +575,17 @@ def execute_command(text: str) -> str | None:
         except Exception as e:
             return f"Failed to commit. Error: {e}"
 
+    if "git push" in clean_text or "get push" in clean_text or "push changes" in clean_text or "push my changes" in clean_text:
+        try:
+            res = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True, check=True)
+            branch = res.stdout.strip()
+            if not branch:
+                return "I couldn't identify the current active branch, sir."
+            subprocess.run(["git", "push", "origin", branch], check=True)
+            return f"Successfully pushed changes on branch {branch} to origin, sir."
+        except Exception as e:
+            return f"Failed to push changes. Error: {e}"
+
     # 33. Port & Process Manager
     if "kill port" in clean_text or "what is on port" in clean_text or "check port" in clean_text or "what's on port" in clean_text:
         try:

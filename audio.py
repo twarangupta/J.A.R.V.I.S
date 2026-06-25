@@ -77,8 +77,15 @@ class AudioHandler:
         max_total_chunks = int(max_seconds / chunk_duration)
         
         started_speaking = False
+        import msvcrt
         
         for _ in range(max_total_chunks):
+            # If the user presses any key, stop recording and process immediately
+            if msvcrt.kbhit():
+                msvcrt.getch()  # Clear keypress
+                print("\n[Recording stopped by user keyboard input]")
+                break
+                
             chunk = self.read_chunk()
             recorded_frames.append(chunk)
             
