@@ -1,7 +1,41 @@
 import pyaudio
 import numpy as np
 import time
+import sys
+import select
 from config import SAMPLE_RATE, CHUNK_SIZE
+from logger import logger
+
+def check_keyboard_hit() -> bool:
+    """Cross-platform check for keyboard press."""
+    if sys.platform == "win32":
+        try:
+            import msvcrt
+            return msvcrt.kbhit()
+        except ImportError:
+            return False
+    else:
+        # Non-blocking stdin check on Unix/macOS
+        rlist, _, _ = select.select([sys.stdin], [], [], 0)
+        return bool(rlist)
+
+def clear_keyboard_hit():
+    """Consumes/clears the pressed key to prevent buffering issues."""
+    if sys.platform == "win32":
+        try:
+            import msvcrt
+            if msvcrt.kbhit():
+                msvcrt.getch()
+        except ImportError:
+            pass
+    else:
+        # Read from stdin to consume the keypress
+        rlist, _, _ = select.select([sys.stdin], [], [], 0)
+        if rlist:
+            try:
+                sys.stdin.read(1)
+            except Exception:
+                pass
 
 class AudioHandler:
     """
@@ -13,8 +47,8 @@ class AudioHandler:
         self.pa = pyaudio.PyAudio()
         self.stream = None
 
-    def start_stream(self):
-        """Starts the microphone input stream."""
+    def start_stream(self) -> bool:
+        """Starts the microphone input stream. Returns True on success, False on failure."""
         if self.stream is not None:
             self.stop_stream()
             
@@ -26,9 +60,11 @@ class AudioHandler:
                 input=True,
                 frames_per_buffer=CHUNK_SIZE
             )
+            return True
         except Exception as e:
-            print(f"[Audio Error] Failed to open microphone stream: {e}")
-            raise e
+            logger.error(f"Failed to open microphone stream: {e}. Please check audio input permissions/device connection.")
+            self.stream = None
+            return False
 
     def stop_stream(self):
         """Stops and closes the microphone stream."""
@@ -37,7 +73,7 @@ class AudioHandler:
                 self.stream.stop_stream()
                 self.stream.close()
             except Exception as e:
-                print(f"[Audio Error] Error closing stream: {e}")
+                logger.error(f"Error closing stream: {e}")
             self.stream = None
 
     def read_chunk(self) -> np.ndarray:
@@ -64,7 +100,7 @@ class AudioHandler:
         Records the microphone stream until silence is detected or max duration is reached.
         Returns a normalized float32 numpy array, ready for Whisper.
         """
-        print("[Listening for speech...]")
+        logger.info("Listening for speech...")
         self.start_stream()
         
         recorded_frames = []
@@ -77,13 +113,12 @@ class AudioHandler:
         max_total_chunks = int(max_seconds / chunk_duration)
         
         started_speaking = False
-        import msvcrt
         
         for _ in range(max_total_chunks):
             # If the user presses any key, stop recording and process immediately
-            if msvcrt.kbhit():
-                msvcrt.getch()  # Clear keypress
-                print("\n[Recording stopped by user keyboard input]")
+            if check_keyboard_hit():
+                clear_keyboard_hit()
+                logger.info("Recording stopped by user keyboard input")
                 break
                 
             chunk = self.read_chunk()

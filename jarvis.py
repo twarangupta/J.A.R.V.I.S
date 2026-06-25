@@ -7,14 +7,14 @@ from config import (
     SLEEP_WORD
 )
 import sys
-import msvcrt
 import numpy as np
 from faster_whisper import WhisperModel
-from audio import audio_handler
+from audio import audio_handler, check_keyboard_hit, clear_keyboard_hit
 from wakeword import WakeWordDetector
 from brain import ask_ai, reset_brain
 from commands import execute_command
 from speaker import speak, stop_speaking, wait_speaking, is_speaking
+from logger import logger
 
 def get_startup_greeting() -> str:
     import random
@@ -114,11 +114,11 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     try:
         while is_speaking():
             # Keyboard interruption fallback
-            if msvcrt.kbhit():
-                msvcrt.getch() # Clear the keypress
+            if check_keyboard_hit():
+                clear_keyboard_hit()
                 stop_speaking()
                 interrupted = True
-                print("\n[Speech interrupted by keyboard]")
+                logger.info("Speech interrupted by keyboard")
                 break
                 
             chunk = audio_handler.read_chunk()
@@ -156,7 +156,7 @@ def main():
     try:
         detector = WakeWordDetector()
     except Exception as e:
-        print(f"Failed to initialize Wake Word Detector: {e}")
+        logger.error(f"Failed to initialize Wake Word Detector: {e}")
         speak("Error loading wake word engine. Exiting.")
         wait_speaking()
         sys.exit(1)
@@ -164,32 +164,36 @@ def main():
     # 3. Initialize Faster-Whisper
     speak("Loading speech recognition models.")
     wait_speaking()
-    print(f"Loading Faster-Whisper '{WHISPER_MODEL_SIZE}' model on '{WHISPER_DEVICE}' ({WHISPER_COMPUTE_TYPE})...")
+    logger.info(f"Loading Faster-Whisper '{WHISPER_MODEL_SIZE}' model on '{WHISPER_DEVICE}' ({WHISPER_COMPUTE_TYPE})...")
     try:
         whisper_model = WhisperModel(
             WHISPER_MODEL_SIZE,
             device=WHISPER_DEVICE,
             compute_type=WHISPER_COMPUTE_TYPE
         )
-        print("Speech recognition loaded successfully.")
+        logger.info("Speech recognition loaded successfully.")
     except Exception as e:
-        print(f"Failed to initialize Whisper model: {e}")
+        logger.error(f"Failed to initialize Whisper model: {e}")
         speak("Error loading speech recognition model. Exiting.")
         wait_speaking()
         sys.exit(1)
 
     greeting_text = get_startup_greeting()
-    print(f"[Jarvis Startup Greeting]: {greeting_text}")
+    logger.info(f"Jarvis Startup Greeting: {greeting_text}")
     speak(greeting_text)
     wait_speaking()
 
     # Main infinite loop
     while True:
         reset_brain() # Clear LLM context memory when entering sleep mode
-        print("\n[Status: Sleeping] Standing by. Speak the wake word...")
+        logger.info("Status: Sleeping. Standing by. Speak the wake word...")
         
         # Start continuous audio stream for wake word monitoring
-        audio_handler.start_stream()
+        import time
+        if not audio_handler.start_stream():
+            logger.error("Microphone hardware connection is missing or blocked. Retrying in 5 seconds...")
+            time.sleep(5)
+            continue
         
         while True:
             # Read streaming audio chunk
@@ -217,7 +221,7 @@ def main():
             if len(audio_data) == 0:
                 continue
                 
-            print("[Transcribing...]")
+            logger.info("Transcribing...")
             try:
                 segments, info = whisper_model.transcribe(
                     audio_data,
@@ -227,11 +231,11 @@ def main():
                 )
                 transcription = "".join(seg.text for seg in segments).strip()
             except Exception as e:
-                print(f"Transcription error: {e}")
+                logger.error(f"Transcription error: {e}")
                 transcription = ""
                 
             if not transcription:
-                print("[No speech recognized]")
+                logger.info("No speech recognized")
                 continue
                 
             print(f"You: {transcription}")
@@ -267,7 +271,7 @@ def main():
                     # Clean the speech reply by removing the command block
                     natural_reply = re.sub(r"[`\[]*[^`\[]*COMMAND:\s*[^\]`]+[\]`]*", "", ai_response, flags=re.IGNORECASE).strip()
                     
-                    print(f"[AI Command Routed] Executing extracted command: '{extracted_cmd}'")
+                    logger.info(f"AI Command Routed: Executing extracted command: '{extracted_cmd}'")
                     cmd_res = execute_command(extracted_cmd)
                     
                     # If the command returned an error or failure, speak the failure message
@@ -282,14 +286,14 @@ def main():
                     interrupted = speak_and_interruptible(ai_response, detector)
                 
             if interrupted:
-                print("[Speech interrupted by user]")
+                logger.info("Speech interrupted by user")
                 continue
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nShutdown signal received. Jarvis going offline.")
+        logger.info("Shutdown signal received. Jarvis going offline.")
         stop_speaking()
         speak("Goodbye, sir. Going offline.")
         wait_speaking()

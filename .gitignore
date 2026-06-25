@@ -18,3 +18,7 @@ notes.md
 
 # Log Files
 *.log
+
+# Environment Files
+.env
+.env.*

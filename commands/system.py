@@ -1,12 +1,27 @@
 import os
+import sys
 import subprocess
 import re
-import ctypes
 import psutil
 import pyautogui
+import shutil
 from datetime import datetime
-from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-from comtypes import CLSCTX_ALL
+
+# Windows-specific imports wrapped safely
+try:
+    import ctypes
+    if sys.platform == 'win32':
+        from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+        from comtypes import CLSCTX_ALL
+    else:
+        AudioUtilities = None
+        IAudioEndpointVolume = None
+        CLSCTX_ALL = None
+except ImportError:
+    ctypes = None
+    AudioUtilities = None
+    IAudioEndpointVolume = None
+    CLSCTX_ALL = None
 
 # Virtual Key Codes for media controls
 VK_MEDIA_PLAY_PAUSE = 0xB3
@@ -15,8 +30,65 @@ VK_MEDIA_PREV_TRACK = 0xB1
 VK_MEDIA_STOP = 0xB2
 
 def press_media_key(vk_code):
-    ctypes.windll.user32.keybd_event(vk_code, 0, 0, 0)
-    ctypes.windll.user32.keybd_event(vk_code, 0, 2, 0) # Key Up
+    if sys.platform == 'win32' and ctypes:
+        try:
+            ctypes.windll.user32.keybd_event(vk_code, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(vk_code, 0, 2, 0) # Key Up
+            return
+        except Exception:
+            pass
+            
+    # Cross-platform fallback using PyAutoGUI
+    mapping = {
+        0xB3: 'playpause',
+        0xB0: 'nexttrack',
+        0xB1: 'prevtrack',
+        0xB2: 'stop'
+    }
+    key_name = mapping.get(vk_code)
+    if key_name:
+        try:
+            pyautogui.press(key_name)
+        except Exception:
+            pass
+
+def open_browser(url: str = None) -> bool:
+    import webbrowser
+    chrome_opened = False
+    if sys.platform == 'win32':
+        chrome_paths = [
+            r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+            r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+        ]
+        for path in chrome_paths:
+            if os.path.exists(path):
+                if url:
+                    subprocess.Popen([path, url])
+                else:
+                    os.startfile(path)
+                chrome_opened = True
+                break
+    elif sys.platform == 'darwin':
+        mac_chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        if os.path.exists(mac_chrome):
+            if url:
+                subprocess.Popen([mac_chrome, url])
+            else:
+                subprocess.Popen([mac_chrome])
+            chrome_opened = True
+    else:
+        for cmd in ["google-chrome", "chrome", "chromium"]:
+            if shutil.which(cmd):
+                if url:
+                    subprocess.Popen([cmd, url])
+                else:
+                    subprocess.Popen([cmd])
+                chrome_opened = True
+                break
+                
+    if not chrome_opened:
+        webbrowser.open(url if url else "https://www.google.com")
+    return True
 
 def execute_system_command(clean_text: str) -> str | None:
     is_open_request = "open" in clean_text or "launch" in clean_text or "start" in clean_text
@@ -34,19 +106,7 @@ def execute_system_command(clean_text: str) -> str | None:
         try:
             import urllib.parse
             url = f"https://www.google.com/search?q={urllib.parse.quote(query)}"
-            chrome_paths = [
-                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-            ]
-            opened = False
-            for path in chrome_paths:
-                if os.path.exists(path):
-                    subprocess.Popen([path, url])
-                    opened = True
-                    break
-            if not opened:
-                import webbrowser
-                webbrowser.open(url)
+            open_browser(url)
             return f"Searching Google for {query}."
         except Exception as e:
             return f"Failed to search. Error: {e}"
@@ -71,24 +131,7 @@ def execute_system_command(clean_text: str) -> str | None:
                     site_name = site.capitalize()
                     break
 
-            chrome_paths = [
-                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-            ]
-            opened = False
-            for path in chrome_paths:
-                if os.path.exists(path):
-                    if target_url:
-                        subprocess.Popen([path, target_url])
-                    else:
-                        os.startfile(path)
-                    opened = True
-                    break
-            
-            if not opened:
-                import webbrowser
-                webbrowser.open(target_url if target_url else "https://www.google.com")
-                
+            open_browser(target_url)
             return f"Opening {site_name}."
         except Exception as e:
             return f"Failed to open {site_name}. Error: {e}"
@@ -139,7 +182,12 @@ def execute_system_command(clean_text: str) -> str | None:
                 
                 folder_path = os.path.join(os.path.expanduser("~"), folder_name)
                 if os.path.exists(folder_path):
-                    subprocess.Popen(["explorer", os.path.normpath(folder_path)])
+                    if sys.platform == 'win32':
+                        subprocess.Popen(["explorer", os.path.normpath(folder_path)])
+                    elif sys.platform == 'darwin':
+                        subprocess.Popen(["open", folder_path])
+                    else:
+                        subprocess.Popen(["xdg-open", folder_path])
                     return f"Opening your {folder_name} folder, sir."
                 else:
                     return f"I couldn't locate your {folder_name} folder, sir."
@@ -148,30 +196,61 @@ def execute_system_command(clean_text: str) -> str | None:
 
     # Shutdown PC
     if "shutdown" in clean_text or "shut down my computer" in clean_text:
-        os.system("shutdown /s /t 5")
+        if sys.platform == 'win32':
+            os.system("shutdown /s /t 5")
+        elif sys.platform == 'darwin':
+            os.system("osascript -e 'tell app \"System Events\" to shut down'")
+        else:
+            os.system("shutdown -h +0")
         return "Shutting down the system in 5 seconds. Goodbye."
 
     # Restart PC
     if "restart" in clean_text or "restart my computer" in clean_text:
-        os.system("shutdown /r /t 5")
+        if sys.platform == 'win32':
+            os.system("shutdown /r /t 5")
+        elif sys.platform == 'darwin':
+            os.system("osascript -e 'tell app \"System Events\" to restart'")
+        else:
+            os.system("shutdown -r +0")
         return "Restarting the system in 5 seconds."
 
     # Lock PC
     if "lock pc" in clean_text or "lock computer" in clean_text or "lock the pc" in clean_text:
         try:
-            os.system("rundll32.exe user32.dll,LockWorkStation")
+            if sys.platform == 'win32':
+                os.system("rundll32.exe user32.dll,LockWorkStation")
+            elif sys.platform == 'darwin':
+                os.system("pmset displaysleepnow")
+            else:
+                lock_cmds = [
+                    "xdg-screensaver lock",
+                    "gnome-screensaver-command -l",
+                    "dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock"
+                ]
+                locked = False
+                for cmd in lock_cmds:
+                    if os.system(cmd) == 0:
+                        locked = True
+                        break
+                if not locked:
+                    return "Workstation lock command not supported or failed on this distribution, sir."
             return "Locking the workstation."
         except Exception as e:
             return f"Failed to lock the workstation. Error: {e}"
 
     # Open Docker Desktop
     if is_open_request and ("docker desktop" in clean_text or "docker" in clean_text):
-        standard_path = r"C:\Program Files\Docker\Docker\Docker Desktop.exe"
         try:
-            if os.path.exists(standard_path):
-                subprocess.Popen([standard_path])
+            if sys.platform == 'win32':
+                standard_path = r"C:\Program Files\Docker\Docker\Docker Desktop.exe"
+                if os.path.exists(standard_path):
+                    subprocess.Popen([standard_path])
+                else:
+                    subprocess.Popen("Docker Desktop.exe", shell=True)
+            elif sys.platform == 'darwin':
+                subprocess.Popen(["open", "-a", "Docker"])
             else:
-                subprocess.Popen("Docker Desktop.exe", shell=True)
+                subprocess.Popen(["docker-desktop"])
             return "Opening Docker Desktop."
         except Exception as e:
             return f"Failed to open Docker Desktop. Error: {e}"
@@ -201,7 +280,13 @@ def execute_system_command(clean_text: str) -> str | None:
             filepath = os.path.join(desktop, filename)
             screenshot = pyautogui.screenshot()
             screenshot.save(filepath)
-            os.startfile(filepath)
+            
+            if sys.platform == 'win32':
+                os.startfile(filepath)
+            elif sys.platform == 'darwin':
+                subprocess.Popen(["open", filepath])
+            else:
+                subprocess.Popen(["xdg-open", filepath])
             return "Screenshot captured and saved to your Desktop, sir."
         except Exception as e:
             return f"Failed to take screenshot. Error: {e}"
@@ -223,47 +308,106 @@ def execute_system_command(clean_text: str) -> str | None:
     # Volume Control
     if "volume" in clean_text or "mute" in clean_text or "unmute" in clean_text:
         try:
-            devices = AudioUtilities.GetSpeakers()
-            interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-            volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
-            
-            if "unmute" in clean_text:
-                volume.SetMute(0, None)
-                return "Audio unmuted, sir."
-            elif "mute" in clean_text:
-                volume.SetMute(1, None)
-                return "Audio muted, sir."
+            if sys.platform == 'win32' and AudioUtilities and IAudioEndpointVolume and ctypes:
+                devices = AudioUtilities.GetSpeakers()
+                interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+                volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
                 
-            match = re.search(r"(\d+)\s*%", clean_text)
-            if not match:
-                match = re.search(r"volume\s*(?:to\s*)?(\d+)", clean_text)
-                
-            if match:
-                val = int(match.group(1))
-                val = max(0, min(100, val))
-                volume.SetMasterVolumeLevelScalar(val / 100.0, None)
-                return f"Volume set to {val} percent, sir."
-                
-            if "increase" in clean_text or "raise" in clean_text or "up" in clean_text:
-                current_val = volume.GetMasterVolumeLevelScalar()
-                new_val = min(1.0, current_val + 0.1)
-                volume.SetMasterVolumeLevelScalar(new_val, None)
-                return f"Volume increased to {int(new_val * 100)} percent, sir."
-                
-            if "decrease" in clean_text or "lower" in clean_text or "down" in clean_text:
-                current_val = volume.GetMasterVolumeLevelScalar()
-                new_val = max(0.0, current_val - 0.1)
-                volume.SetMasterVolumeLevelScalar(new_val, None)
-                return f"Volume decreased to {int(new_val * 100)} percent, sir."
+                if "unmute" in clean_text:
+                    volume.SetMute(0, None)
+                    return "Audio unmuted, sir."
+                elif "mute" in clean_text:
+                    volume.SetMute(1, None)
+                    return "Audio muted, sir."
+                    
+                match = re.search(r"(\d+)\s*%", clean_text)
+                if not match:
+                    match = re.search(r"volume\s*(?:to\s*)?(\d+)", clean_text)
+                    
+                if match:
+                    val = int(match.group(1))
+                    val = max(0, min(100, val))
+                    volume.SetMasterVolumeLevelScalar(val / 100.0, None)
+                    return f"Volume set to {val} percent, sir."
+                    
+                if "increase" in clean_text or "raise" in clean_text or "up" in clean_text:
+                    current_val = volume.GetMasterVolumeLevelScalar()
+                    new_val = min(1.0, current_val + 0.1)
+                    volume.SetMasterVolumeLevelScalar(new_val, None)
+                    return f"Volume increased to {int(new_val * 100)} percent, sir."
+                    
+                if "decrease" in clean_text or "lower" in clean_text or "down" in clean_text:
+                    current_val = volume.GetMasterVolumeLevelScalar()
+                    new_val = max(0.0, current_val - 0.1)
+                    volume.SetMasterVolumeLevelScalar(new_val, None)
+                    return f"Volume decreased to {int(new_val * 100)} percent, sir."
+            else:
+                # Non-Windows Volume Controls
+                if "unmute" in clean_text:
+                    if sys.platform == 'darwin':
+                        subprocess.run(["osascript", "-e", "set volume without output muted"], check=True)
+                    else:
+                        subprocess.run(["amixer", "-D", "pulse", "sset", "Master", "unmute"], check=True)
+                    return "Audio unmuted, sir."
+                elif "mute" in clean_text:
+                    if sys.platform == 'darwin':
+                        subprocess.run(["osascript", "-e", "set volume with output muted"], check=True)
+                    else:
+                        subprocess.run(["amixer", "-D", "pulse", "sset", "Master", "mute"], check=True)
+                    return "Audio muted, sir."
+
+                match = re.search(r"(\d+)\s*%", clean_text)
+                if not match:
+                    match = re.search(r"volume\s*(?:to\s*)?(\d+)", clean_text)
+                    
+                if match:
+                    val = int(match.group(1))
+                    val = max(0, min(100, val))
+                    if sys.platform == 'darwin':
+                        subprocess.run(["osascript", "-e", f"set volume output volume {val}"], check=True)
+                    else:
+                        subprocess.run(["amixer", "-D", "pulse", "sset", "Master", f"{val}%"], check=True)
+                    return f"Volume set to {val} percent, sir."
+                    
+                if "increase" in clean_text or "raise" in clean_text or "up" in clean_text:
+                    if sys.platform == 'darwin':
+                        subprocess.run(["osascript", "-e", "set volume output volume (output volume of (get volume settings) + 10)"], check=True)
+                    else:
+                        subprocess.run(["amixer", "-D", "pulse", "sset", "Master", "10%+"], check=True)
+                    return "Volume increased, sir."
+                if "decrease" in clean_text or "lower" in clean_text or "down" in clean_text:
+                    if sys.platform == 'darwin':
+                        subprocess.run(["osascript", "-e", "set volume output volume (output volume of (get volume settings) - 10)"], check=True)
+                    else:
+                        subprocess.run(["amixer", "-D", "pulse", "sset", "Master", "10%-"], check=True)
+                    return "Volume decreased, sir."
         except Exception as e:
             return f"Failed to adjust volume. Error: {e}"
 
     # Empty Recycle Bin
     if "empty recycle bin" in clean_text or "clean the trash" in clean_text or "empty trash" in clean_text:
         try:
-            SHERB_NOCONFIRMATION = 0x00000001
-            SHERB_NOSOUND = 0x00000004
-            ctypes.windll.shell32.SHEmptyRecycleBinW(None, None, SHERB_NOCONFIRMATION | SHERB_NOSOUND)
+            if sys.platform == 'win32' and ctypes:
+                SHERB_NOCONFIRMATION = 0x00000001
+                SHERB_NOSOUND = 0x00000004
+                ctypes.windll.shell32.SHEmptyRecycleBinW(None, None, SHERB_NOCONFIRMATION | SHERB_NOSOUND)
+            elif sys.platform == 'darwin':
+                trash_path = os.path.expanduser("~/.Trash")
+                for root, dirs, files in os.walk(trash_path):
+                    for f in files:
+                        os.unlink(os.path.join(root, f))
+                    for d in dirs:
+                        shutil.rmtree(os.path.join(root, d))
+            else:
+                trash_paths = [os.path.expanduser("~/.local/share/Trash/files"), os.path.expanduser("~/.local/share/Trash/info")]
+                for tp in trash_paths:
+                    if os.path.exists(tp):
+                        for item in os.listdir(tp):
+                            item_path = os.path.join(tp, item)
+                            if os.path.isdir(item_path):
+                                shutil.rmtree(item_path)
+                            else:
+                                os.unlink(item_path)
             return "Recycle bin emptied, sir."
         except Exception as e:
             return f"Failed to empty recycle bin. Error: {e}"
@@ -271,24 +415,24 @@ def execute_system_command(clean_text: str) -> str | None:
     # Active Window Controls
     if "close this window" in clean_text or "close window" in clean_text:
         try:
-            VK_MENU = 0x12
-            VK_F4 = 0x73
-            ctypes.windll.user32.keybd_event(VK_MENU, 0, 0, 0)
-            ctypes.windll.user32.keybd_event(VK_F4, 0, 0, 0)
-            ctypes.windll.user32.keybd_event(VK_F4, 0, 2, 0)
-            ctypes.windll.user32.keybd_event(VK_MENU, 0, 2, 0)
+            if sys.platform == 'win32':
+                pyautogui.hotkey('alt', 'f4')
+            elif sys.platform == 'darwin':
+                pyautogui.hotkey('command', 'w')
+            else:
+                pyautogui.hotkey('alt', 'f4')
             return "Closing active window."
         except Exception as e:
             return f"Failed to close window. Error: {e}"
 
     if "minimize window" in clean_text or "minimize this window" in clean_text:
         try:
-            VK_LWIN = 0x5B
-            VK_DOWN = 0x28
-            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 0, 0)
-            ctypes.windll.user32.keybd_event(VK_DOWN, 0, 0, 0)
-            ctypes.windll.user32.keybd_event(VK_DOWN, 0, 2, 0)
-            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 2, 0)
+            if sys.platform == 'win32':
+                pyautogui.hotkey('win', 'down')
+            elif sys.platform == 'darwin':
+                pyautogui.hotkey('command', 'm')
+            else:
+                pyautogui.hotkey('win', 'd')
             return "Minimizing active window."
         except Exception as e:
             return f"Failed to minimize window. Error: {e}"
@@ -296,18 +440,27 @@ def execute_system_command(clean_text: str) -> str | None:
     # Meeting / Focus Mode
     if "meeting mode" in clean_text or "focus mode" in clean_text:
         try:
-            devices = AudioUtilities.GetSpeakers()
-            interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-            volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
-            volume.SetMute(1, None)
+            # Mute
+            if sys.platform == 'win32' and AudioUtilities and IAudioEndpointVolume and ctypes:
+                devices = AudioUtilities.GetSpeakers()
+                interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+                volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
+                volume.SetMute(1, None)
+            elif sys.platform == 'darwin':
+                subprocess.run(["osascript", "-e", "set volume with output muted"], check=True)
+            else:
+                subprocess.run(["amixer", "-D", "pulse", "sset", "Master", "mute"], check=True)
             
-            # Minimize all windows Win+M
-            VK_LWIN = 0x5B
-            VK_M = 0x4D
-            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 0, 0)
-            ctypes.windll.user32.keybd_event(VK_M, 0, 0, 0)
-            ctypes.windll.user32.keybd_event(VK_M, 0, 2, 0)
-            ctypes.windll.user32.keybd_event(VK_LWIN, 0, 2, 0)
+            # Minimize all
+            if sys.platform == 'win32':
+                pyautogui.hotkey('win', 'm')
+            elif sys.platform == 'darwin':
+                # macOS: Command+Option+H to hide other windows, Command+Option+M to minimize
+                pyautogui.hotkey('command', 'option', 'h')
+                pyautogui.hotkey('command', 'option', 'm')
+            else:
+                pyautogui.hotkey('win', 'd')
+                
             return "Meeting mode activated. Master audio muted and windows minimized, sir."
         except Exception as e:
             return f"Failed to activate meeting mode. Error: {e}"
@@ -336,13 +489,15 @@ def execute_system_command(clean_text: str) -> str | None:
         except Exception as e:
             return f"Failed to check battery. Error: {e}"
 
-    # Disk Space C:
+    # Disk Space
     if "check storage" in clean_text or "disk space" in clean_text or "hard drive space" in clean_text:
         try:
-            obj = psutil.disk_usage('C:\\')
+            path_to_check = 'C:\\' if sys.platform == 'win32' else '/'
+            obj = psutil.disk_usage(path_to_check)
             free_gb = obj.free / (1024**3)
             total_gb = obj.total / (1024**3)
-            return f"C: drive has {free_gb:.1f} gigabytes free out of {total_gb:.1f} gigabytes total, sir."
+            drive_name = "C: drive" if sys.platform == 'win32' else "Root storage"
+            return f"{drive_name} has {free_gb:.1f} gigabytes free out of {total_gb:.1f} gigabytes total, sir."
         except Exception as e:
             return f"Failed to check disk usage. Error: {e}"
 
