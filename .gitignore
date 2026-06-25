@@ -1,0 +1,20 @@
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# Downloaded Models
+models/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Local Tracking/Notes (optional to ignore)
+time_tracker.json
+timesheet.csv
+code_review.md
+notes.md
+
+# Log Files
+*.log
