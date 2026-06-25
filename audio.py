@@ -21,3 +21,5 @@ class AudioHandler:
         try:
             self.stream = self.pa.open(
                 format=pyaudio.paInt16,
+                channels=1,
+                rate=SAMPLE_RATE,

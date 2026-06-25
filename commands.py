@@ -160,3 +160,18 @@ def execute_command(text: str) -> str | None:
 
     # 11. Open Docker Desktop
     if is_open_request and ("docker desktop" in clean_text or "docker" in clean_text):
+        standard_path = r"C:\Program Files\Docker\Docker\Docker Desktop.exe"
+        try:
+            if os.path.exists(standard_path):
+                subprocess.Popen([standard_path])
+            else:
+                # Fallback to run directly from PATH
+                subprocess.Popen("Docker Desktop.exe", shell=True)
+            return "Opening Docker Desktop."
+        except Exception as e:
+            return f"Failed to open Docker Desktop. Error: {e}"
+
+    # 12. System Telemetry & Status Report
+    if "status report" in clean_text or "system status" in clean_text or "telemetry" in clean_text:
+        try:
+            cpu_usage = psutil.cpu_percent()

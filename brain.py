@@ -8,3 +8,4 @@ class Brain:
     """
     def __init__(self):
         self.model = MODEL_NAME
+        self.system_prompt = OLLAMA_SYSTEM_PROMPT

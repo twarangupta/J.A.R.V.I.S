@@ -20,3 +20,5 @@ class Speaker:
             print("[TTS Initialization] J.A.R.V.I.S. neural voice loaded successfully.")
         except Exception as e:
             print(f"Error loading J.A.R.V.I.S. voice model: {e}")
+            self.voice = None
+

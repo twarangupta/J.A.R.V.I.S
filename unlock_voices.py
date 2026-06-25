@@ -9,3 +9,4 @@ def copy_key(src_key, dest_key):
             winreg.SetValueEx(dest_key, val_name, 0, val_type, val_data)
             i += 1
     except OSError:
+        pass # No more values

@@ -7,3 +7,4 @@ class WakeWordDetector:
     """
     Wraps the OpenWakeWord library to monitor streaming audio chunks
     and detect the wake word.
+    """

@@ -33,3 +33,7 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     chunks_count = 0
     try:
         while is_speaking():
+            # Keyboard interruption fallback
+            if msvcrt.kbhit():
+                msvcrt.getch() # Clear the keypress
+                stop_speaking()
