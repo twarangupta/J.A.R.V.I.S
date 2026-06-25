@@ -29,3 +29,4 @@ def unlock():
     one_core_path = r"SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens"
     sapi5_user_path = r"SOFTWARE\Microsoft\Speech\Voices\Tokens"
     
+    try:

@@ -92,3 +92,6 @@ def main():
         sys.exit(1)
 
     speak("All systems active. Jarvis is online.")
+    wait_speaking()
+
+    # Main infinite loop

@@ -13,3 +13,4 @@ def download_file(url, filepath):
             data = response.read()
             out_file.write(data)
         print("Success!")
+    except Exception as e:

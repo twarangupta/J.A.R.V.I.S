@@ -57,3 +57,5 @@ class Speaker:
                 
                 # Set playing state to True synchronously to avoid race conditions
                 self.is_speaking = True
+                
+                # Start playback in a background thread

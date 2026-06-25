@@ -59,3 +59,5 @@ class AudioHandler:
             # Underflow/Overflow or hardware issues
             return np.zeros(CHUNK_SIZE, dtype=np.int16)
 
+    def record_phrase(self, silence_threshold=500, silence_timeout_seconds=2.0, max_seconds=10.0) -> np.ndarray:
+        """

@@ -25,3 +25,4 @@ with sr.Microphone() as source:
 
 try:
     print("Recognizing...")
+    command = recognizer.recognize_google(audio).lower()

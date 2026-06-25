@@ -427,3 +427,17 @@ def execute_command(text: str) -> str | None:
                 def run_timer(s, d, u):
                     import time
                     time.sleep(s)
+                    speak(f"Alert! Your timer for {d} {u}s has expired, sir.")
+                    
+                threading.Thread(target=run_timer, args=(secs, duration, unit)).start()
+                return f"Starting a timer for {duration} {unit}s."
+        except Exception as e:
+            return f"Failed to start timer. Error: {e}"
+
+    # 24. NATO Spelling Aid
+    if "spell" in clean_text:
+        try:
+            match = re.search(r"spell\s+(\w+)", clean_text)
+            if match:
+                word = match.group(1).upper()
+                nato = {

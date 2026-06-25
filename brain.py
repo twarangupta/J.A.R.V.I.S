@@ -26,3 +26,4 @@ class Brain:
         self.history.append({"role": "user", "content": question})
         try:
             response = ollama.chat(
+                model=self.model,
