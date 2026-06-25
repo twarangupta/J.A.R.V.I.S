@@ -7,3 +7,4 @@ def download_file(url, filepath):
         # Use headers to avoid generic User-Agent blocking
         req = urllib.request.Request(
             url, 
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}

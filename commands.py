@@ -264,3 +264,18 @@ def execute_command(text: str) -> str | None:
         return "Playing previous track."
     if "stop music" in clean_text or "stop playback" in clean_text:
         press_media_key(VK_MEDIA_STOP)
+        return "Playback stopped, sir."
+
+    # 16. System Volume Control
+    if "volume" in clean_text or "mute" in clean_text or "unmute" in clean_text:
+        try:
+            devices = AudioUtilities.GetSpeakers()
+            interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+            volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
+            
+            if "unmute" in clean_text:
+                volume.SetMute(0, None)
+                return "Audio unmuted, sir."
+            elif "mute" in clean_text:
+                volume.SetMute(1, None)
+                return "Audio muted, sir."

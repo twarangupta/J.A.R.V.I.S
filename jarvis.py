@@ -56,3 +56,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
         
     return interrupted
 
+def main():
+    print("=" * 50)
+    print("                JARVIS INITIALIZATION                ")

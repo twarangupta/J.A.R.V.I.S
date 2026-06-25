@@ -34,3 +34,6 @@ class Speaker:
             self.out_stream = None
         if self.play_thread and self.play_thread.is_alive():
             self.play_thread.join()
+
+    def wait(self):
+        """Blocks until current speech is finished."""
