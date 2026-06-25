@@ -47,3 +47,4 @@ def unlock():
             copy_key(src_voice, dest_voice)
             winreg.CloseKey(src_voice)
             winreg.CloseKey(dest_voice)
+            i += 1

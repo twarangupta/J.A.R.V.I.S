@@ -147,3 +147,6 @@ def main():
                 
             print(f"You: {transcription}")
             
+            # Check for sleep trigger
+            if SLEEP_WORD in transcription.lower():
+                speak("Understood. Re-engaging sleep mode.")

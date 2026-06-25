@@ -43,3 +43,4 @@ class Brain:
             return "I am having trouble accessing my local cognitive models. Please verify Ollama is active."
 
 # Singleton instance
+brain = Brain()

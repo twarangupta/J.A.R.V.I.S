@@ -38,3 +38,4 @@ class WakeWordDetector:
         score = self.model.prediction_buffer[self.model_key][-1]
         
         if score >= WAKE_WORD_THRESHOLD:
+            print(f"\n[Wake Word Triggered] Confidence: {score:.2f}")

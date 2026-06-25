@@ -92,3 +92,5 @@ class Speaker:
             pass
         finally:
             self.is_speaking = False
+
+# Create global instance for easy access

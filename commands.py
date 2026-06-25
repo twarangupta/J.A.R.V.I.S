@@ -678,3 +678,18 @@ def read_root():
                 "Provide constructive feedback. Keep it brief.\n\n"
                 f"Git Diff:\n{diff}"
             )
+            from brain import ask_ai
+            review = ask_ai(prompt)
+            with open("code_review.md", "w", encoding="utf-8") as f:
+                f.write(f"# Code Review - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n{review}\n")
+            return "I've reviewed your git diff and written the report to code_review.md, sir."
+        except Exception as e:
+            return f"Failed to perform code review. Error: {e}"
+
+    # 39. Automated Unit Test Generator
+    if "write a unit test" in clean_text or "write a test for" in clean_text or "generate test" in clean_text:
+        try:
+            match = re.search(r"for\s+([\w\.-]+)", clean_text)
+            if not match:
+                return "Please specify the file name to generate tests for, sir."
+            filename = match.group(1)

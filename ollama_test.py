@@ -8,3 +8,4 @@ response = chat(
             "content": "Who are you?"
         }
     ]
+)

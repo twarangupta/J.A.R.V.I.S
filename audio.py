@@ -95,3 +95,5 @@ class AudioHandler:
                     silent_chunks += 1
                     if silent_chunks >= max_silent_chunks:
                         # Finished speaking
+                        break
+        
