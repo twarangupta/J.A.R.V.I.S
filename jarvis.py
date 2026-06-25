@@ -4,3 +4,6 @@ from config import (
     WHISPER_COMPUTE_TYPE,
     WHISPER_LANGUAGE,
     WHISPER_VAD_FILTER,
+    SLEEP_WORD
+)
+import sys

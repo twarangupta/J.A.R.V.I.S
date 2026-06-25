@@ -27,3 +27,18 @@ def execute_command(text: str) -> str | None:
     # Google Search Command
     query = None
     if clean_text.startswith("search for ") or clean_text.startswith("google for "):
+        query = clean_text.split("for", 1)[1].strip()
+    elif clean_text.startswith("search ") or clean_text.startswith("google "):
+        parts = clean_text.split(" ", 1)
+        if len(parts) > 1:
+            query = parts[1].strip()
+            
+    if query:
+        try:
+            import urllib.parse
+            url = f"https://www.google.com/search?q={urllib.parse.quote(query)}"
+            chrome_paths = [
+                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+            ]
+            opened = False
