@@ -101,3 +101,18 @@ def execute_command(text: str) -> str | None:
     if is_open_request and ("vs code" in clean_text or "vscode" in clean_text or "visual studio code" in clean_text):
         try:
             subprocess.Popen("code", shell=True)
+            return "Opening Visual Studio Code."
+        except Exception as e:
+            return f"Failed to open VS Code. Error: {e}"
+
+    # 3. Open Spotify
+    if is_open_request and "spotify" in clean_text:
+        try:
+            # Using the Spotify protocol handler to start the app
+            subprocess.Popen("start spotify:", shell=True)
+            return "Opening Spotify."
+        except Exception as e:
+            return f"Failed to open Spotify. Error: {e}"
+
+    # 4. Open Calculator
+    if is_open_request and ("calculator" in clean_text or "calc" in clean_text):

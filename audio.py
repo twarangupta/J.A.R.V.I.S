@@ -12,3 +12,5 @@ class AudioHandler:
     def __init__(self):
         self.pa = pyaudio.PyAudio()
         self.stream = None
+
+    def start_stream(self):

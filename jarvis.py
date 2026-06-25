@@ -20,3 +20,7 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     """
     Plays the response. While speaking, continuously streams mic audio and checks for the wake word.
     If the wake word is detected, stops speaking immediately and returns True.
+    """
+    # Reset prediction buffers to clear the wake-up word trigger
+    detector.reset()
+    

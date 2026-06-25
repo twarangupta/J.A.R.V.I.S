@@ -12,3 +12,5 @@ class Speaker:
         try:
             print("[TTS Initialization] Loading J.A.R.V.I.S. neural voice model...")
             self.voice = PiperVoice.load("models/jarvis-high.onnx")
+            self.sample_rate = self.voice.config.sample_rate
+            self.pa = pyaudio.PyAudio()
