@@ -382,3 +382,18 @@ def execute_command(text: str) -> str | None:
                    mins = (secs % 3600) // 60
                    return f"Sir, the battery is at {percent} percent with {hours} hours and {mins} minutes remaining."
             else:
+                return "No battery detected, sir. Ensure you are on a laptop."
+        except Exception as e:
+            return f"Failed to check battery. Error: {e}"
+
+    # 21. Disk Space Analyzer
+    if "check storage" in clean_text or "disk space" in clean_text or "hard drive space" in clean_text:
+        try:
+            obj = psutil.disk_usage('C:\\')
+            free_gb = obj.free / (1024**3)
+            total_gb = obj.total / (1024**3)
+            return f"C: drive has {free_gb:.1f} gigabytes free out of {total_gb:.1f} gigabytes total, sir."
+        except Exception as e:
+            return f"Failed to check disk usage. Error: {e}"
+
+    # 22. Clipboard Reader

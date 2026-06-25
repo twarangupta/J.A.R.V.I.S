@@ -51,3 +51,5 @@ class Speaker:
         if self.voice:
             try:
                 # Generate audio bytes
+                audio_bytes = b""
+                for chunk in self.voice.synthesize(text):

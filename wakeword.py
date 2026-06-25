@@ -20,3 +20,4 @@ class WakeWordDetector:
             else:
                 self.model = Model(wakeword_models=[WAKE_WORD_MODEL])
         else:
+            self.model = Model(wakeword_models=[WAKE_WORD_MODEL], inference_framework="onnx")

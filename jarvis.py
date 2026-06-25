@@ -82,3 +82,6 @@ def main():
         whisper_model = WhisperModel(
             WHISPER_MODEL_SIZE,
             device=WHISPER_DEVICE,
+            compute_type=WHISPER_COMPUTE_TYPE
+        )
+        print("Speech recognition loaded successfully.")

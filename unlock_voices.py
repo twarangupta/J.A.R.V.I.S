@@ -25,3 +25,4 @@ def copy_key(src_key, dest_key):
     except OSError:
         pass # No more subkeys
 
+def unlock():

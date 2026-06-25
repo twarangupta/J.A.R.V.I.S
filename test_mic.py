@@ -15,3 +15,4 @@ default_device = pa.get_default_input_device_info()
 print(f"\nDefault input device: {default_device.get('name')} at index {default_device.get('index')}")
 
 print("\nStarting stream. Speak into your mic (press Ctrl+C to stop)...")
+stream = pa.open(

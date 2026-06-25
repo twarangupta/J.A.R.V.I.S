@@ -52,3 +52,5 @@ class AudioHandler:
             self.stream = None
             self.start_stream()
             
+        try:
+            data = self.stream.read(CHUNK_SIZE, exception_on_overflow=False)
