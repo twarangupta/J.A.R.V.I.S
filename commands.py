@@ -12,3 +12,18 @@ import urllib.parse
 import json
 import random
 import socket
+import time
+
+def execute_command(text: str) -> str | None:
+    """
+    Checks if the transcribed text matches any system command.
+    If so, executes it and returns a response string.
+    If not, returns None, indicating the request should go to the LLM brain.
+    """
+    clean_text = text.strip().lower()
+
+    is_open_request = "open" in clean_text or "launch" in clean_text or "start" in clean_text
+
+    # Google Search Command
+    query = None
+    if clean_text.startswith("search for ") or clean_text.startswith("google for "):
