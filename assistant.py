@@ -42,3 +42,4 @@ try:
     elif "thank you" in command:
         speak("You're welcome.")
 
+    else:

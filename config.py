@@ -28,3 +28,4 @@ WHISPER_VAD_FILTER = True     # Use Voice Activity Detection (VAD) to ignore sil
 
 # Text-to-Speech Settings (pyttsx3)
 VOICE_RATE = 170
+VOICE_VOLUME = 1.0

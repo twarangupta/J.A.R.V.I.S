@@ -23,3 +23,4 @@ def main():
     onnx_url = "https://huggingface.co/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx"
     json_url = "https://huggingface.co/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx.json"
     
+    download_file(onnx_url, os.path.join(model_dir, "jarvis-high.onnx"))

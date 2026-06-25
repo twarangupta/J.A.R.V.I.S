@@ -693,3 +693,18 @@ def read_root():
             if not match:
                 return "Please specify the file name to generate tests for, sir."
             filename = match.group(1)
+            if not os.path.exists(filename):
+                return f"File {filename} does not exist in the current directory."
+            with open(filename, "r", encoding="utf-8", errors="ignore") as f:
+                code_content = f.read()
+            if len(code_content) > 4000:
+                code_content = code_content[:4000]
+            prompt = (
+                f"Write a comprehensive unit test suite using unittest or pytest for this Python code. "
+                f"Only output valid Python code, no markdown formatting blocks.\n\n"
+                f"Code:\n{code_content}"
+            )
+            from brain import ask_ai
+            test_code = ask_ai(prompt)
+            test_code = test_code.replace("```python", "").replace("```", "").strip()
+            test_filename = f"test_{filename}"

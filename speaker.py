@@ -94,3 +94,5 @@ class Speaker:
             self.is_speaking = False
 
 # Create global instance for easy access
+_speaker = Speaker()
+

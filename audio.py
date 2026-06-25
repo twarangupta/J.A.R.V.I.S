@@ -97,3 +97,5 @@ class AudioHandler:
                         # Finished speaking
                         break
         
+        # Clean up stream after phrase is recorded
+        self.stop_stream()

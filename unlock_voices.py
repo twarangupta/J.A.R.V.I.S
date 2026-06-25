@@ -48,3 +48,4 @@ def unlock():
             winreg.CloseKey(src_voice)
             winreg.CloseKey(dest_voice)
             i += 1
+    except OSError:

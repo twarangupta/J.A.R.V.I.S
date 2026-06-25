@@ -44,3 +44,4 @@ class Brain:
 
 # Singleton instance
 brain = Brain()
+

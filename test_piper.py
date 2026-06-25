@@ -21,3 +21,4 @@ print(f"Synthesized in {time.time() - start:.2f}s")
 audio_data = np.frombuffer(audio_bytes, dtype=np.int16)
 
 # Play audio
+sample_rate = voice.config.sample_rate

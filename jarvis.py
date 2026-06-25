@@ -150,3 +150,7 @@ def main():
             # Check for sleep trigger
             if SLEEP_WORD in transcription.lower():
                 speak("Understood. Re-engaging sleep mode.")
+                wait_speaking()
+                break
+                
+            # Check if this is a direct system command
