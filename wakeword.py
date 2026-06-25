@@ -31,3 +31,4 @@ class WakeWordDetector:
         Processes a single chunk of audio (1280 samples at 16000Hz).
         Returns True if the wake word is detected above the threshold.
         """
+        # Run prediction on the chunk

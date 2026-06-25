@@ -76,3 +76,5 @@ class Speaker:
                 rate=self.sample_rate,
                 output=True
             )
+            # Write in small chunks to allow quick interruption response
+            chunk_size = 1024

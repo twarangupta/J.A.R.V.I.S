@@ -35,3 +35,4 @@ class Brain:
             
             self.history.append({"role": "assistant", "content": reply})
             return reply
+            

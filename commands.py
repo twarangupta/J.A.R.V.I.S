@@ -560,3 +560,18 @@ def execute_command(text: str) -> str | None:
             res = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True)
             lines = res.stdout.strip().split("\n")
             modified = len([l for l in lines if l])
+            if modified == 0:
+                return "Your git branch is clean, sir."
+            return f"You have {modified} untracked or modified files in your branch, sir."
+        except Exception as e:
+            return f"Failed to run git status. Error: {e}"
+
+    if "git commit" in clean_text or "commit my changes" in clean_text or "git check in" in clean_text:
+        try:
+            subprocess.run(["git", "add", "."], check=True)
+            msg = f"Automated commit via Jarvis on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            subprocess.run(["git", "commit", "-m", msg], check=True)
+            return f"Staged all files and committed with message: {msg}."
+        except Exception as e:
+            return f"Failed to commit. Error: {e}"
+

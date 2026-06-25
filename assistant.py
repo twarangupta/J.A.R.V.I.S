@@ -33,3 +33,4 @@ try:
         speak("Hello Twaran. Welcome back!")
 
     elif "time" in command:
+        current_time = datetime.now().strftime("%I:%M %p")

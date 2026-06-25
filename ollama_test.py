@@ -6,3 +6,4 @@ response = chat(
         {
             "role": "user",
             "content": "Who are you?"
+        }

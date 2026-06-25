@@ -121,3 +121,6 @@ def main():
             if interrupted:
                 interrupted = False
                 
+            # Record user phrase with silence detection
+            audio_data = audio_handler.record_phrase()
+            

@@ -78,3 +78,5 @@ class AudioHandler:
         
         started_speaking = False
         
+        for _ in range(max_total_chunks):
+            chunk = self.read_chunk()

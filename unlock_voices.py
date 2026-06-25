@@ -38,3 +38,4 @@ def unlock():
     dest_root = winreg.CreateKey(winreg.HKEY_CURRENT_USER, sapi5_user_path)
     
     try:
+        i = 0
