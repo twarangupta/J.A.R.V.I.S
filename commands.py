@@ -131,3 +131,18 @@ def execute_command(text: str) -> str | None:
             return f"Failed to open Notepad. Error: {e}"
 
     # 6. Tell me the time
+    if "tell me the time" in clean_text or "what time is it" in clean_text or "current time" in clean_text or "what is the time" in clean_text:
+        return datetime.now().strftime("The current time is %I:%M %p.")
+
+    # 7. Tell me the date
+    if "tell me the date" in clean_text or "what's the date" in clean_text or "current date" in clean_text or "what is the date" in clean_text:
+        return datetime.now().strftime("Today is %B %d, %Y.")
+
+    # 8. Shutdown PC
+    if "shutdown" in clean_text or "shut down my computer" in clean_text:
+        # Schedule shutdown in 5 seconds
+        os.system("shutdown /s /t 5")
+        return "Shutting down the system in 5 seconds. Goodbye."
+
+    # 9. Restart PC
+    if "restart" in clean_text or "restart my computer" in clean_text:

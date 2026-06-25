@@ -16,3 +16,5 @@ class Speaker:
             self.pa = pyaudio.PyAudio()
             self.play_thread = None
             self.stop_playback = threading.Event()
+            self.is_speaking = False
+            print("[TTS Initialization] J.A.R.V.I.S. neural voice loaded successfully.")

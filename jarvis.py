@@ -27,3 +27,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     speak(text)
     
     # Start microphone stream to monitor for interrupt wake word
+    audio_handler.start_stream()
+    
+    interrupted = False
