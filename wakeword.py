@@ -11,3 +11,4 @@ class WakeWordDetector:
     def __init__(self):
         print(f"Initializing OpenWakeWord with model: {WAKE_WORD_MODEL}")
         
+        # OpenWakeWord accepts file paths to custom models,

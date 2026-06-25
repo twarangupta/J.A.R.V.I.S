@@ -50,3 +50,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
                 if chunks_count > 6:
                     stop_speaking()
                     interrupted = True
+                    break
+    finally:
+        audio_handler.stop_stream()

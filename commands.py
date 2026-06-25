@@ -234,3 +234,18 @@ def execute_command(text: str) -> str | None:
                     lines = f.readlines()
                 if not lines:
                     return "Your notepad is currently empty, sir."
+                last_notes = [line.strip().replace("- ", "") for line in lines[-3:]]
+                notes_str = " Here are your last notes: " + " ... ".join(last_notes)
+                return f"You have {len(lines)} notes saved.{notes_str}"
+            else:
+                return "You don't have any notes saved yet, sir."
+        except Exception as e:
+            return f"Failed to read notes. Error: {e}"
+
+    # 15. Media Playback Controls
+    # Virtual Key Codes
+    VK_MEDIA_PLAY_PAUSE = 0xB3
+    VK_MEDIA_NEXT_TRACK = 0xB0
+    VK_MEDIA_PREV_TRACK = 0xB1
+    VK_MEDIA_STOP = 0xB2
+    

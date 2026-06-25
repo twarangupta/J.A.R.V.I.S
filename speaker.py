@@ -30,3 +30,5 @@ class Speaker:
                 self.out_stream.stop_stream()
                 self.out_stream.close()
             except:
+                pass
+            self.out_stream = None
