@@ -33,7 +33,7 @@ available in Jarvis, along with their matching trigger words and expected behavi
   * Voice Triggers: "empty recycle bin", "clean the trash", "empty trash"
   * Behavior: Silently purges all items inside the Windows Recycle Bin.
 - Battery Telemetry
-  * Voice Triggers: "battery", "power percentage", "system status"
+  * Voice Triggers: "battery", "power percentage"
   * Behavior: Reports current battery charge percentage, charging state, and remaining hours.
 
 --------------------------------------------------------------------------------
@@ -60,6 +60,9 @@ available in Jarvis, along with their matching trigger words and expected behavi
 - Open Docker Desktop
   * Voice Triggers: "open docker desktop", "open docker"
   * Behavior: Launches the Docker Desktop application.
+- Open System Folders
+  * Voice Triggers: "open downloads", "open downloads folder", "open documents", "open desktop", "open pictures"
+  * Behavior: Launches the corresponding local system directory in Windows Explorer.
 - Organize Downloads Folder
   * Voice Triggers: "organize my downloads", "organize downloads"
   * Behavior: Scans the user's Downloads directory and moves files into organized folders (Documents, Images, Installers, Audio, Video, Archives) based on extensions.
@@ -113,6 +116,9 @@ available in Jarvis, along with their matching trigger words and expected behavi
 - Switch Git Branch
   * Voice Triggers: "switch branch to <branch>", "checkout branch <branch>"
   * Behavior: Executes checkout to switch the workspace to the specified branch.
+- Create Git Branch
+  * Voice Triggers: "create branch <branch>", "create a branch <branch>", "new branch <branch>"
+  * Behavior: Creates and switches to a new Git branch.
 - List Git Branches
   * Voice Triggers: "git branch", "show branches", "list branches"
   * Behavior: Lists local branches and highlights which branch is currently active.
@@ -133,8 +139,8 @@ available in Jarvis, along with their matching trigger words and expected behavi
   * Voice Triggers: "search codebase for <term>", "search code for <term>"
   * Behavior: Scans files in the workspace (excluding virtual environments) and lists matching lines.
 - Boilerplate Creator
-  * Voice Triggers: "create fastapi", "fastapi boilerplate"
-  * Behavior: Generates a starter `main.py` FastAPI implementation.
+  * Voice Triggers: "create fastapi", "fastapi boilerplate", "create boilerplate for <technology>", "create a boilerplate for <technology>"
+  * Behavior: Pastes standard or dynamically generated skeleton code directly at your cursor in the active open file.
 - Automated Code Review
   * Voice Triggers: "review my code", "code review"
   * Behavior: Runs `git diff` on unstaged changes, submits them to the local AI, and writes a review report to `code_review.md`.
@@ -144,6 +150,21 @@ available in Jarvis, along with their matching trigger words and expected behavi
 - Clipboard Reader
   * Voice Triggers: "read my clipboard", "read clipboard"
   * Behavior: Reads out the first 150 characters of text currently held in the system clipboard.
+- Log Analyzer / Debugger [NEW]
+  * Voice Triggers: "debug this crash", "debug crash", "analyze this stack trace", "analyze stack trace", "debug error", "analyze error"
+  * Behavior: Automatically reads the tracebacks from the clipboard, diagnoses the bugs using local AI, and saves the report to `debug_report.md` (also copied to the clipboard).
+- Dependency Health Checker [NEW]
+  * Voice Triggers: "audit my dependencies", "check dependencies", "audit dependencies"
+  * Behavior: Scans `requirements.txt` and `package.json` to flag outdated dependencies.
+- API Sandbox [NEW]
+  * Voice Triggers: "send a get request to <url>", "send a post request to <url>", "send request to <url>"
+  * Behavior: Executes a GET or POST request directly to local or external web URLs and copies the response body and headers to the clipboard.
+- Semantic Code Explainer [NEW]
+  * Voice Triggers: "explain code file <file>", "explain file <file>", "explain code <file>"
+  * Behavior: Feeds the selected code file to the local Ollama LLM to explain the file structure, classes, and logic.
+- Container Logs Monitor [NEW]
+  * Voice Triggers: "check container logs for <container_name>", "container logs <container_name>"
+  * Behavior: Runs `docker logs --tail 20 <container_name>` and copies the tail output to the clipboard.
 
 --------------------------------------------------------------------------------
 6. CONVERSATIONAL & RECREATIONAL COMMANDS
@@ -178,4 +199,25 @@ available in Jarvis, along with their matching trigger words and expected behavi
 - Go to Sleep
   * Voice Triggers: "go to sleep"
   * Behavior: Stops active listening, clears LLM brain memory, and waits silently for the wake word.
+- Screen OCR / Visual Reader [NEW]
+  * Voice Triggers: "read my screen", "scan screen text", "read screen", "ocr screen"
+  * Behavior: Grabs a screenshot, applies `pytesseract` OCR, and copies the extracted text to your clipboard.
+- Intelligent Draft Writer [NEW]
+  * Voice Triggers: "draft an email", "draft email", "draft a reply", "draft reply", "draft message"
+  * Behavior: Uses the local AI to draft a message based on your description and copies it directly to your clipboard.
+- Voice Expense Tracker [NEW]
+  * Voice Triggers: "log <number> dollars for <category>", "log expense", "how much did i spend", "spending summary"
+  * Behavior: Appends spent transactions to `finances.csv` and reads out budget spending sums.
+- Smart Calendar Companion [NEW]
+  * Voice Triggers: "what is my schedule today", "show calendar", "my schedule"
+  * Behavior: Scans the local `calendar.ics` file and announces the titles of upcoming events.
+- Wi-Fi / Internet Diagnostics [NEW]
+  * Voice Triggers: "run a speed test", "check my internet speed", "internet speed test", "speed test"
+  * Behavior: Measures latency and network download speed, running a speed test.
+- Voice Translator [NEW]
+  * Voice Triggers: "translate <text> to <language>"
+  * Behavior: Translates spoken text to a target language (like Spanish, French, German) using the local AI.
+- Dictation / Typing Helper [NEW]
+  * Voice Triggers: "type <text>", "write <text>", "insert <text>"
+  * Behavior: Extracts your spoken phrase (preserving case capitalization) and types/pastes it directly at the active cursor position. Runs silently without spoken confirmation.
 ================================================================================

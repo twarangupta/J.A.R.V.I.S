@@ -61,6 +61,13 @@ def main():
     print("                JARVIS INITIALIZATION                ")
     print("=" * 50)
     
+    # Play premium repulsor startup tone
+    try:
+        from startup_audio import play_startup_sound
+        play_startup_sound()
+    except:
+        pass
+    
     # 1. Initialize text-to-speech speaker
     speak("Initializing system protocols.")
     wait_speaking()
@@ -91,7 +98,7 @@ def main():
         wait_speaking()
         sys.exit(1)
 
-    speak("All systems active. Jarvis is online.")
+    speak("Welcome back, sir. Repulsor power at 100 percent. Jarvis is online.")
     wait_speaking()
 
     # Main infinite loop
@@ -151,13 +158,21 @@ def main():
             if SLEEP_WORD in transcription.lower():
                 speak("Understood. Re-engaging sleep mode.")
                 wait_speaking()
+                try:
+                    from startup_audio import play_sleep_sound
+                    play_sleep_sound()
+                except:
+                    pass
                 break
                 
             # Check if this is a direct system command
             command_response = execute_command(transcription)
             
             if command_response is not None:
-                interrupted = speak_and_interruptible(command_response, detector)
+                if command_response == "":
+                    interrupted = False
+                else:
+                    interrupted = speak_and_interruptible(command_response, detector)
             else:
                 # Query Ollama Brain
                 ai_response = ask_ai(transcription)
@@ -176,6 +191,8 @@ def main():
                     # If the command returned an error or failure, speak the failure message
                     if cmd_res and ("failed" in cmd_res.lower() or "error" in cmd_res.lower() or "unable" in cmd_res.lower()):
                         interrupted = speak_and_interruptible(cmd_res, detector)
+                    elif cmd_res == "":
+                        interrupted = False
                     else:
                         speech_text = natural_reply if natural_reply else (cmd_res if cmd_res else "Command executed, sir.")
                         interrupted = speak_and_interruptible(speech_text, detector)
