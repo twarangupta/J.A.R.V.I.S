@@ -23,3 +23,4 @@ SLEEP_WORD = "go to sleep"
 WHISPER_MODEL_SIZE = "small"  # Options: tiny, base, small, medium, large-v3 or local folder path
 WHISPER_DEVICE = "cpu"        # GTX 1650 doesn't have PyTorch CUDA, so we use cpu
 WHISPER_COMPUTE_TYPE = "int8" # int8 is recommended for CPU speed when using small/medium models
+WHISPER_LANGUAGE = "en"       # Lock speech detection to English to prevent hallucinations from noise

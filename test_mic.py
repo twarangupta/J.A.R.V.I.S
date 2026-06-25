@@ -24,3 +24,4 @@ stream = pa.open(
 )
 
 try:
+    while True:

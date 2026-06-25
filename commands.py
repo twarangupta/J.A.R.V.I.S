@@ -575,3 +575,18 @@ def execute_command(text: str) -> str | None:
         except Exception as e:
             return f"Failed to commit. Error: {e}"
 
+    # 33. Port & Process Manager
+    if "kill port" in clean_text or "what is on port" in clean_text or "check port" in clean_text or "what's on port" in clean_text:
+        try:
+            match = re.search(r"port\s+(\d+)", clean_text)
+            if match:
+                port = match.group(1)
+                res = subprocess.run(f"netstat -ano | findstr :{port}", shell=True, capture_output=True, text=True)
+                lines = [l.strip() for l in res.stdout.strip().split("\n") if l.strip()]
+                if not lines:
+                    return f"No process is running on port {port}, sir."
+                    
+                pid = lines[0].split()[-1]
+                if "kill" in clean_text:
+                    subprocess.run(f"taskkill /F /PID {pid}", shell=True, check=True)
+                    return f"Successfully terminated process with P.I.D. {pid} on port {port}."

@@ -78,3 +78,5 @@ class Speaker:
             )
             # Write in small chunks to allow quick interruption response
             chunk_size = 1024
+            for i in range(0, len(audio_bytes), chunk_size):
+                if self.stop_playback.is_set():

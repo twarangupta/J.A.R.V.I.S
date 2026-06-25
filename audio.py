@@ -80,3 +80,5 @@ class AudioHandler:
         
         for _ in range(max_total_chunks):
             chunk = self.read_chunk()
+            recorded_frames.append(chunk)
+            

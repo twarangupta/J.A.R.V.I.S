@@ -124,3 +124,7 @@ def main():
             # Record user phrase with silence detection
             audio_data = audio_handler.record_phrase()
             
+            # Skip if no audio recorded
+            if len(audio_data) == 0:
+                continue
+                
