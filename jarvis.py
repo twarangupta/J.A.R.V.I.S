@@ -16,6 +16,86 @@ from brain import ask_ai, reset_brain
 from commands import execute_command
 from speaker import speak, stop_speaking, wait_speaking, is_speaking
 
+def get_startup_greeting() -> str:
+    import random
+    import urllib.request
+    import json
+    import psutil
+
+    candidates = []
+
+    # 1. Attempt Weather/Location Lookup (max 1.5s timeout)
+    weather_text = None
+    try:
+        req = urllib.request.Request(
+            "http://ip-api.com/json/",
+            headers={'User-Agent': 'Mozilla/5.0'}
+        )
+        with urllib.request.urlopen(req, timeout=1.5) as response:
+            data = json.loads(response.read().decode())
+            city = data.get("city")
+            lat = data.get("lat")
+            lon = data.get("lon")
+            
+        if city and lat is not None and lon is not None:
+            weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            req2 = urllib.request.Request(
+                weather_url,
+                headers={'User-Agent': 'Mozilla/5.0'}
+            )
+            with urllib.request.urlopen(req2, timeout=1.5) as response:
+                weather_data = json.loads(response.read().decode())
+                temp = weather_data.get("current_weather", {}).get("temperature")
+                if temp is not None:
+                    weather_templates = [
+                        f"According to your IP address, it is currently {temp} degrees Celsius in {city}, sir.",
+                        f"The weather in {city} is {temp} degrees Celsius right now, sir. Hopefully, it's a good day to build.",
+                        f"I've checked the local conditions in {city}. It's currently {temp} degrees Celsius, sir."
+                    ]
+                    weather_text = random.choice(weather_templates)
+    except Exception:
+        pass
+
+    if weather_text:
+        candidates.append(weather_text)
+
+    # 2. Attempt Battery Check
+    battery_text = None
+    try:
+        battery = psutil.sensors_battery()
+        if battery is not None:
+            percent = battery.percent
+            status = "connected to AC power" if battery.power_plugged else "running on battery power"
+            battery_templates = [
+                f"All protocols initialized, sir. Battery is at {percent} percent, and we are currently {status}.",
+                f"Jarvis is online, sir. Power levels are at {percent} percent and we are {status}.",
+                f"System check complete, sir. Internal power is at {percent} percent, and we are {status}."
+            ]
+            battery_text = random.choice(battery_templates)
+    except Exception:
+        pass
+
+    if battery_text:
+        candidates.append(battery_text)
+
+    # 3. Conversational/Iron Man style greetings & questions (always present)
+    conversational_options = [
+        "Welcome back, sir. Repulsor power at 100 percent. Shall we run a diagnostics check?",
+        "All systems are green, sir. Ready for your instructions.",
+        "Jarvis is online, sir. Do you have any plans for upgrading the suit design today?",
+        "System initialization complete. What are we coding today, sir?",
+        "Tony would be proud of this setup. What is our next objective, sir?",
+        "Greetings, sir. I've cleared the caches. Shall we proceed?",
+        "Online and ready, sir. Would you like me to scan for any security alerts?",
+        "Diagnostics complete, sir. Repulsors, flight stabilizer, and cooling systems are all optimal. What's next?",
+        "Welcome back, sir. I hope you're ready to make some magic today. Where should we start?",
+        "All auxiliary systems are operating within normal parameters. What can I do for you today, sir?"
+    ]
+    candidates.append(random.choice(conversational_options))
+
+    # Pick exactly one greeting
+    return random.choice(candidates)
+
 def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
     """
     Plays the response. While speaking, continuously streams mic audio and checks for the wake word.
@@ -98,7 +178,9 @@ def main():
         wait_speaking()
         sys.exit(1)
 
-    speak("Welcome back, sir. Repulsor power at 100 percent. Jarvis is online.")
+    greeting_text = get_startup_greeting()
+    print(f"[Jarvis Startup Greeting]: {greeting_text}")
+    speak(greeting_text)
     wait_speaking()
 
     # Main infinite loop
