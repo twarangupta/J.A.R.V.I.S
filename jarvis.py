@@ -111,3 +111,7 @@ def main():
                 break
                 
         # Stop wake-word streaming to switch mode
+        audio_handler.stop_stream()
+        
+        # Greeting (interruptible)
+        interrupted = speak_and_interruptible("Systems online. How can I help you, sir?", detector)

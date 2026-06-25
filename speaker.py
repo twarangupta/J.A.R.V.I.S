@@ -69,3 +69,5 @@ class Speaker:
             pass
 
     def _play_audio(self, audio_bytes: bytes):
+        try:
+            self.out_stream = self.pa.open(

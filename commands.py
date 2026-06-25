@@ -516,3 +516,17 @@ def execute_command(text: str) -> str | None:
                 return f"According to Wikipedia: {summary}"
         except Exception as e:
             return "I couldn't fetch details from Wikipedia at this time, sir."
+
+    # 30. Joke Teller
+    if "tell me a joke" in clean_text or "joke" in clean_text:
+        jokes = [
+            "Why do programmers wear glasses? Because they can't C sharp.",
+            "There are 10 types of people in the world: those who understand binary, and those who don't.",
+            "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+            "A SQL query goes into a bar, walks up to two tables and asks: Can I join you?",
+            "Why did the programmer quit his job? Because he didn't get arrays."
+        ]
+        return random.choice(jokes)
+
+    # 31. Reminders Core
+    if "remind me in" in clean_text or "set a reminder" in clean_text:

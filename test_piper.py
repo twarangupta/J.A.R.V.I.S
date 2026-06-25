@@ -15,3 +15,4 @@ audio_bytes = b""
 for chunk in voice.synthesize(text):
     audio_bytes += chunk.audio_int16_bytes
 
+print(f"Synthesized in {time.time() - start:.2f}s")

@@ -35,3 +35,4 @@ def unlock():
         print(f"Failed to open OneCore voices registry: {e}")
         return
         
+    dest_root = winreg.CreateKey(winreg.HKEY_CURRENT_USER, sapi5_user_path)

@@ -71,3 +71,5 @@ class AudioHandler:
         silent_chunks = 0
         
         # Calculate how many chunks represent the silence timeout
+        # Each chunk is 1280 samples at 16000Hz = 80ms (0.08 seconds)
+        chunk_duration = CHUNK_SIZE / SAMPLE_RATE

@@ -20,3 +20,4 @@ WAKE_WORD_THRESHOLD = 0.2
 SLEEP_WORD = "go to sleep"
 
 # Speech-to-Text Settings (Faster Whisper)
+WHISPER_MODEL_SIZE = "small"  # Options: tiny, base, small, medium, large-v3 or local folder path

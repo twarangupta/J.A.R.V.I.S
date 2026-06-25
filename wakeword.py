@@ -28,3 +28,4 @@ class WakeWordDetector:
 
     def is_wake_word(self, chunk: np.ndarray) -> bool:
         """
+        Processes a single chunk of audio (1280 samples at 16000Hz).
