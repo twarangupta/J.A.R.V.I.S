@@ -137,3 +137,7 @@ def main():
                     vad_filter=WHISPER_VAD_FILTER
                 )
                 transcription = "".join(seg.text for seg in segments).strip()
+            except Exception as e:
+                print(f"Transcription error: {e}")
+                transcription = ""
+                

@@ -8,3 +8,4 @@ with sr.Microphone() as source:
     audio = recognizer.listen(source)
 
     print("Recognizing...")
+

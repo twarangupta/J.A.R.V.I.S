@@ -21,3 +21,4 @@ def main():
     os.makedirs(model_dir, exist_ok=True)
     
     onnx_url = "https://huggingface.co/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx"
+    json_url = "https://huggingface.co/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx.json"

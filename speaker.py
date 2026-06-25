@@ -86,3 +86,5 @@ class Speaker:
             
             if self.out_stream:
                 self.out_stream.stop_stream()
+                self.out_stream.close()
+                self.out_stream = None

@@ -88,3 +88,5 @@ class AudioHandler:
             if amplitude > silence_threshold:
                 if not started_speaking:
                     # Voice activity detected
+                    started_speaking = True
+                silent_chunks = 0

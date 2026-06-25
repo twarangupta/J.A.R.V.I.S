@@ -634,3 +634,18 @@ def execute_command(text: str) -> str | None:
                                 for i, line in enumerate(f, 1):
                                      if term in line.lower():
                                          matches.append(f"{file} line {i}")
+                                         if len(matches) >= 3:
+                                             break
+                        except:
+                            pass
+                if len(matches) >= 3:
+                     break
+            if not matches:
+                return f"No matches found for {term} in your codebase."
+            return f"Found matches in: {', '.join(matches[:3])}."
+        except Exception as e:
+            return f"Failed search. Error: {e}"
+
+    # 37. Boilerplate Creator
+    if "create fastapi" in clean_text or "fastapi boilerplate" in clean_text:
+        try:
