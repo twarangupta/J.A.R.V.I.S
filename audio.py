@@ -57,3 +57,5 @@ class AudioHandler:
             return np.frombuffer(data, dtype=np.int16)
         except Exception as e:
             # Underflow/Overflow or hardware issues
+            return np.zeros(CHUNK_SIZE, dtype=np.int16)
+

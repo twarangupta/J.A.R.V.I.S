@@ -24,3 +24,4 @@ with sr.Microphone() as source:
     audio = recognizer.listen(source)
 
 try:
+    print("Recognizing...")

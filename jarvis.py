@@ -89,3 +89,6 @@ def main():
         print(f"Failed to initialize Whisper model: {e}")
         speak("Error loading speech recognition model. Exiting.")
         wait_speaking()
+        sys.exit(1)
+
+    speak("All systems active. Jarvis is online.")

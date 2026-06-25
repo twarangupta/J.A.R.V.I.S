@@ -55,3 +55,5 @@ class Speaker:
                 for chunk in self.voice.synthesize(text):
                     audio_bytes += chunk.audio_int16_bytes
                 
+                # Set playing state to True synchronously to avoid race conditions
+                self.is_speaking = True

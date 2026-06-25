@@ -22,3 +22,4 @@ class WakeWordDetector:
         else:
             self.model = Model(wakeword_models=[WAKE_WORD_MODEL], inference_framework="onnx")
             
+        # Get the internal key used to access prediction buffers

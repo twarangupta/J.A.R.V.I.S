@@ -412,3 +412,18 @@ def execute_command(text: str) -> str | None:
     # 23. Voice Alarm / Timer
     if "timer for" in clean_text or "set a timer" in clean_text:
         try:
+            match = re.search(r"(\d+)\s*(second|minute|hour)", clean_text)
+            if match:
+                duration = int(match.group(1))
+                unit = match.group(2)
+                secs = duration
+                if "minute" in unit:
+                    secs *= 60
+                elif "hour" in unit:
+                    secs *= 3600
+                
+                import threading
+                from speaker import speak
+                def run_timer(s, d, u):
+                    import time
+                    time.sleep(s)
