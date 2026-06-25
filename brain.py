@@ -11,3 +11,4 @@ class Brain:
         self.system_prompt = OLLAMA_SYSTEM_PROMPT
         self.history = []
         self.reset_conversation()
+

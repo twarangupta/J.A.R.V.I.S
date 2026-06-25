@@ -205,3 +205,17 @@ def execute_command(text: str) -> str | None:
     # 14. Voice Scratchpad / Notes
     if "write a note" in clean_text or "save a note" in clean_text:
         try:
+            note_text = ""
+            if "note" in clean_text:
+                note_text = clean_text.split("note", 1)[1].strip()
+            
+            # Clean up leading prefix words
+            if note_text.startswith("to "):
+                note_text = note_text[3:]
+            elif note_text.startswith("that "):
+                note_text = note_text[5:]
+                
+            if not note_text:
+                return "What note would you like me to write, sir?"
+                
+            notes_path = "notes.md"

@@ -27,3 +27,5 @@ class AudioHandler:
                 frames_per_buffer=CHUNK_SIZE
             )
         except Exception as e:
+            print(f"[Audio Error] Failed to open microphone stream: {e}")
+            raise e

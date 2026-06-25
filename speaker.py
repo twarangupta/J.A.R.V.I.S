@@ -26,3 +26,5 @@ class Speaker:
         """Instantly stops any ongoing playback."""
         self.stop_playback.set()
         if hasattr(self, 'out_stream') and self.out_stream:
+            try:
+                self.out_stream.stop_stream()

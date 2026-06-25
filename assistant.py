@@ -11,3 +11,4 @@ engine.setProperty("voice", voices[0].id)
 engine.setProperty("rate", 170)
 
 
+def speak(text):

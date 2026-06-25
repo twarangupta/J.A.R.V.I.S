@@ -43,3 +43,6 @@ def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
                 
             chunk = audio_handler.read_chunk()
             chunks_count += 1
+            
+            # Check for wake word but ignore the first ~0.5 seconds (6 chunks)
+            # of audio to prevent triggering from the trailing wake-up audio.
