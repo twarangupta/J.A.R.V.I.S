@@ -29,3 +29,4 @@ class Brain:
                 model=self.model,
                 messages=self.history
             )
+            reply = response.get("message", {}).get("content", "")

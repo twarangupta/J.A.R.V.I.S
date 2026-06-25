@@ -65,3 +65,5 @@ class AudioHandler:
         Returns a normalized float32 numpy array, ready for Whisper.
         """
         print("[Listening for speech...]")
+        self.start_stream()
+        

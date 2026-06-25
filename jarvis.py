@@ -102,3 +102,6 @@ def main():
         # Start continuous audio stream for wake word monitoring
         audio_handler.start_stream()
         
+        while True:
+            # Read streaming audio chunk
+            chunk = audio_handler.read_chunk()

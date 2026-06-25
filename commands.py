@@ -471,3 +471,18 @@ def execute_command(text: str) -> str | None:
         except Exception as e:
             pass
 
+    # 27. IP Address Lookup
+    if "my ip address" in clean_text or "what's my ip" in clean_text or "ip configuration" in clean_text:
+        try:
+            hostname = socket.gethostname()
+            local_ip = socket.gethostbyname(hostname)
+            try:
+                req_ip = urllib.request.Request("https://api.ipify.org", headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req_ip) as r:
+                    public_ip = r.read().decode().strip()
+            except:
+                public_ip = "unknown"
+            return f"Your local IP is {local_ip}, and your public IP is {public_ip}."
+        except Exception as e:
+            return f"Failed to retrieve network config. Error: {e}"
+

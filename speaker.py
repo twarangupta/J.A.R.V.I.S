@@ -63,3 +63,5 @@ class Speaker:
                 self.play_thread.start()
             except Exception as e:
                 print(f"TTS Speech Error: {e}")
+                self.is_speaking = False
+        else:
