@@ -45,3 +45,4 @@ try:
     else:
         speak("Sorry, I don't know how to respond to that yet.")
 
+except sr.UnknownValueError:

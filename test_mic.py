@@ -32,3 +32,4 @@ try:
         print(f"Max Amplitude: {max_amplitude:5d} | Mean Amplitude: {mean_amplitude:5.1f} | " + ("#" * int(min(max_amplitude, 5000) / 100)), end="\r")
 except KeyboardInterrupt:
     print("\nStopping...")
+finally:

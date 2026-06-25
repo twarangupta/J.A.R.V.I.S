@@ -103,3 +103,5 @@ class AudioHandler:
         if not recorded_frames:
             return np.zeros(0, dtype=np.float32)
             
+        # Concatenate and convert to float32 normalized in [-1.0, 1.0]
+        audio_data = np.concatenate(recorded_frames)

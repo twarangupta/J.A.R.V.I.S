@@ -41,3 +41,4 @@ class WakeWordDetector:
             print(f"\n[Wake Word Triggered] Confidence: {score:.2f}")
             return True
             
+        return False

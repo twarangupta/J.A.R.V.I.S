@@ -738,3 +738,17 @@ def read_root():
                         if ext in extensions:
                             dest_dir = category
                             break
+                    target_folder = os.path.join(downloads, dest_dir)
+                    os.makedirs(target_folder, exist_ok=True)
+                    os.rename(item_path, os.path.join(target_folder, item))
+                    moved_count += 1
+            return f"I've successfully organized {moved_count} files in your downloads folder, sir."
+        except Exception as e:
+            return f"Failed to organize downloads. Error: {e}"
+
+    # 41. Development Time Tracker
+    if "start tracking" in clean_text:
+        try:
+            task = "Coding Session"
+            if "tracking" in clean_text:
+                parts = clean_text.split("tracking", 1)

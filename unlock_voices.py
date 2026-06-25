@@ -51,3 +51,4 @@ def unlock():
     except OSError:
         pass # No more voices
         
+    winreg.CloseKey(src_root)
