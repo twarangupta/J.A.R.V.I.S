@@ -18,3 +18,4 @@ print("\nStarting stream. Speak into your mic (press Ctrl+C to stop)...")
 stream = pa.open(
     format=pyaudio.paInt16,
     channels=1,
+    rate=SAMPLE_RATE,

@@ -61,3 +61,5 @@ class AudioHandler:
 
     def record_phrase(self, silence_threshold=500, silence_timeout_seconds=2.0, max_seconds=10.0) -> np.ndarray:
         """
+        Records the microphone stream until silence is detected or max duration is reached.
+        Returns a normalized float32 numpy array, ready for Whisper.

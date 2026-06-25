@@ -95,3 +95,6 @@ def main():
     wait_speaking()
 
     # Main infinite loop
+    while True:
+        reset_brain() # Clear LLM context memory when entering sleep mode
+        print("\n[Status: Sleeping] Standing by. Speak the wake word...")

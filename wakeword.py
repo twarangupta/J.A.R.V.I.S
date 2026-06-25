@@ -24,3 +24,4 @@ class WakeWordDetector:
             
         # Get the internal key used to access prediction buffers
         self.model_key = list(self.model.models.keys())[0]
+        print(f"Wake word model loaded. Key name: {self.model_key}")

@@ -17,3 +17,4 @@ WAKE_WORD_MODEL = "hey_jarvis"
 WAKE_WORD_THRESHOLD = 0.2
 
 # Sleep trigger phrase
+SLEEP_WORD = "go to sleep"

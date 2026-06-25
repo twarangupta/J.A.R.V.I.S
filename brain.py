@@ -27,3 +27,4 @@ class Brain:
         try:
             response = ollama.chat(
                 model=self.model,
+                messages=self.history

@@ -441,3 +441,18 @@ def execute_command(text: str) -> str | None:
             if match:
                 word = match.group(1).upper()
                 nato = {
+                    'A': 'Alpha', 'B': 'Bravo', 'C': 'Charlie', 'D': 'Delta', 'E': 'Echo',
+                    'F': 'Foxtrot', 'G': 'Golf', 'H': 'Hotel', 'I': 'India', 'J': 'Juliett',
+                    'K': 'Kilo', 'L': 'Lima', 'M': 'Mike', 'N': 'November', 'O': 'Oscar',
+                    'P': 'Papa', 'Q': 'Quebec', 'R': 'Romeo', 'S': 'Sierra', 'T': 'Tango',
+                    'U': 'Uniform', 'V': 'Victor', 'W': 'Whiskey', 'X': 'X-ray', 'Y': 'Yankee', 'Z': 'Zulu'
+                }
+                spelling = [nato.get(char, char) for char in word]
+                return f"{word} is spelled: " + ", ".join(spelling)
+        except Exception as e:
+            return f"Failed spelling operation. Error: {e}"
+
+    # 25. Dice Roller / Coin Flipper
+    if "flip a coin" in clean_text or "toss a coin" in clean_text:
+        return f"It is {random.choice(['Heads', 'Tails'])}, sir."
+    if "roll a dice" in clean_text or "roll a die" in clean_text:

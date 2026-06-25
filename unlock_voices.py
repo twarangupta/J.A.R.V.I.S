@@ -30,3 +30,4 @@ def unlock():
     sapi5_user_path = r"SOFTWARE\Microsoft\Speech\Voices\Tokens"
     
     try:
+        src_root = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, one_core_path)
