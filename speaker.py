@@ -45,3 +45,5 @@ class Speaker:
         Speaks the given text aloud asynchronously in a background thread.
         """
         self.stop()
+        self.stop_playback.clear()
+        print(f"\n[Jarvis]: {text}\n")

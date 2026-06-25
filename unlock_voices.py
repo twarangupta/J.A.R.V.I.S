@@ -22,3 +22,4 @@ def copy_key(src_key, dest_key):
             winreg.CloseKey(src_subkey)
             winreg.CloseKey(dest_subkey)
             i += 1
+    except OSError:

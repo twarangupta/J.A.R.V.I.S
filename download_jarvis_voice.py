@@ -10,3 +10,4 @@ def download_file(url, filepath):
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
         )
         with urllib.request.urlopen(req) as response, open(filepath, 'wb') as out_file:
+            data = response.read()

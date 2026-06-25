@@ -46,3 +46,5 @@ class AudioHandler:
         Returns a numpy array of int16 samples.
         """
         try:
+            if self.stream is None or not self.stream.is_active():
+                self.start_stream()

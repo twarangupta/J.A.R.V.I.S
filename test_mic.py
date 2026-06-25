@@ -13,3 +13,4 @@ for i in range(pa.get_device_count()):
 
 default_device = pa.get_default_input_device_info()
 print(f"\nDefault input device: {default_device.get('name')} at index {default_device.get('index')}")
+

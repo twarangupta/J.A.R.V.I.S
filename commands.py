@@ -338,3 +338,18 @@ def execute_command(text: str) -> str | None:
             return "I am currently unable to fetch the weather telemetry, sir."
 
     # 19. Active Window Controls
+    if "close this window" in clean_text or "close window" in clean_text:
+        try:
+            VK_MENU = 0x12  # Alt
+            VK_F4 = 0x73    # F4
+            ctypes.windll.user32.keybd_event(VK_MENU, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(VK_F4, 0, 0, 0)
+            ctypes.windll.user32.keybd_event(VK_F4, 0, 2, 0)
+            ctypes.windll.user32.keybd_event(VK_MENU, 0, 2, 0)
+            return "Closing active window."
+        except Exception as e:
+            return f"Failed to close window. Error: {e}"
+
+    if "minimize window" in clean_text or "minimize this window" in clean_text:
+        try:
+            VK_LWIN = 0x5B  # Left Win key

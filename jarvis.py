@@ -72,3 +72,7 @@ def main():
         print(f"Failed to initialize Wake Word Detector: {e}")
         speak("Error loading wake word engine. Exiting.")
         wait_speaking()
+        sys.exit(1)
+
+    # 3. Initialize Faster-Whisper
+    speak("Loading speech recognition models.")
