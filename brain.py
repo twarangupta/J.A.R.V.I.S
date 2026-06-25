@@ -31,3 +31,4 @@ class Brain:
             )
             reply = response.get("message", {}).get("content", "")
             if not reply:
+                reply = "I apologize, but I received empty telemetry from my brain core."

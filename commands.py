@@ -501,3 +501,18 @@ def execute_command(text: str) -> str | None:
             return "I am currently unable to fetch the news telemetry, sir."
 
     # 29. Wikipedia Summary
+    if "wikipedia" in clean_text:
+        try:
+            match = re.search(r"wikipedia\s+(?:for\s+)?(.*)", clean_text)
+            if match:
+                topic = match.group(1).strip()
+                wiki_url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(topic)}"
+                req_wiki = urllib.request.Request(wiki_url, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req_wiki) as r:
+                    w_data = json.loads(r.read().decode())
+                summary = w_data.get("extract", "No summary found.")
+                if len(summary) > 250:
+                    summary = summary[:250] + "..."
+                return f"According to Wikipedia: {summary}"
+        except Exception as e:
+            return "I couldn't fetch details from Wikipedia at this time, sir."

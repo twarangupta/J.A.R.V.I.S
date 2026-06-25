@@ -69,3 +69,5 @@ class AudioHandler:
         
         recorded_frames = []
         silent_chunks = 0
+        
+        # Calculate how many chunks represent the silence timeout

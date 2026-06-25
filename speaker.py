@@ -67,3 +67,5 @@ class Speaker:
         else:
             # Fallback (print only)
             pass
+
+    def _play_audio(self, audio_bytes: bytes):

@@ -108,3 +108,6 @@ def main():
             
             # Check for wake word
             if detector.is_wake_word(chunk):
+                break
+                
+        # Stop wake-word streaming to switch mode

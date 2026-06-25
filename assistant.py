@@ -30,3 +30,4 @@ try:
     print("You:", command)
 
     if "hello" in command:
+        speak("Hello Twaran. Welcome back!")

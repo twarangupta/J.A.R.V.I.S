@@ -27,3 +27,4 @@ class WakeWordDetector:
         print(f"Wake word model loaded. Key name: {self.model_key}")
 
     def is_wake_word(self, chunk: np.ndarray) -> bool:
+        """
