@@ -8,3 +8,5 @@ class AudioHandler:
     Manages microphone input streams.
     Provides methods to stream raw chunks for wake word detection,
     and to record complete phrases with basic silence detection for Whisper.
+    """
+    def __init__(self):

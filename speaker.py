@@ -8,3 +8,5 @@ class Speaker:
     Provides the premium, original-sounding J.A.R.V.I.S. voice.
     Supports non-blocking background playback and instant interruption.
     """
+    def __init__(self):
+        try:

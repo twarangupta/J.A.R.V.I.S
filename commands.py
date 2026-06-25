@@ -72,3 +72,17 @@ def execute_command(text: str) -> str | None:
             for site, url in urls.items():
                 if site in clean_text:
                     target_url = url
+                    site_name = site.capitalize()
+                    break
+
+            chrome_paths = [
+                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+            ]
+            opened = False
+            for path in chrome_paths:
+                if os.path.exists(path):
+                    if target_url:
+                        subprocess.Popen([path, target_url])
+                    else:
+                        os.startfile(path)

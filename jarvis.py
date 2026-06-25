@@ -14,3 +14,6 @@ from audio import audio_handler
 from wakeword import WakeWordDetector
 from brain import ask_ai, reset_brain
 from commands import execute_command
+from speaker import speak, stop_speaking, wait_speaking, is_speaking
+
+def speak_and_interruptible(text: str, detector: WakeWordDetector) -> bool:
