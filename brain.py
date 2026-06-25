@@ -30,3 +30,4 @@ class Brain:
                 messages=self.history
             )
             reply = response.get("message", {}).get("content", "")
+            if not reply:

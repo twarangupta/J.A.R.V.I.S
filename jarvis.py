@@ -105,3 +105,6 @@ def main():
         while True:
             # Read streaming audio chunk
             chunk = audio_handler.read_chunk()
+            
+            # Check for wake word
+            if detector.is_wake_word(chunk):

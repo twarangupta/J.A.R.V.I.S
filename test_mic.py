@@ -20,3 +20,4 @@ stream = pa.open(
     channels=1,
     rate=SAMPLE_RATE,
     input=True,
+    frames_per_buffer=CHUNK_SIZE

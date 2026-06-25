@@ -19,3 +19,4 @@ WAKE_WORD_THRESHOLD = 0.2
 # Sleep trigger phrase
 SLEEP_WORD = "go to sleep"
 
+# Speech-to-Text Settings (Faster Whisper)

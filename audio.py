@@ -67,3 +67,5 @@ class AudioHandler:
         print("[Listening for speech...]")
         self.start_stream()
         
+        recorded_frames = []
+        silent_chunks = 0

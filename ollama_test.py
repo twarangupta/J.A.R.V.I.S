@@ -5,3 +5,4 @@ response = chat(
     messages=[
         {
             "role": "user",
+            "content": "Who are you?"

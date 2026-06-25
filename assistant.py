@@ -29,3 +29,4 @@ try:
 
     print("You:", command)
 
+    if "hello" in command:

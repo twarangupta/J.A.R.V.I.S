@@ -65,3 +65,5 @@ class Speaker:
                 print(f"TTS Speech Error: {e}")
                 self.is_speaking = False
         else:
+            # Fallback (print only)
+            pass

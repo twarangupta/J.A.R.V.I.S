@@ -486,3 +486,18 @@ def execute_command(text: str) -> str | None:
         except Exception as e:
             return f"Failed to retrieve network config. Error: {e}"
 
+    # 28. News Reader
+    if "read today's headlines" in clean_text or "news headlines" in clean_text or "current news" in clean_text:
+        try:
+            req_news = urllib.request.Request("https://feeds.bbci.co.uk/news/world/rss.xml", headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req_news) as r:
+                xml = r.read().decode('utf-8')
+            titles = re.findall(r"<title><!\[CDATA\[(.*?)\]\]></title>", xml)
+            if not titles:
+                titles = re.findall(r"<title>(.*?)</title>", xml)
+            headlines = [t for t in titles[1:4]]
+            return "Here are the top world headlines: " + ". ... ".join(headlines)
+        except Exception as e:
+            return "I am currently unable to fetch the news telemetry, sir."
+
+    # 29. Wikipedia Summary
