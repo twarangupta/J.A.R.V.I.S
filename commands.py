@@ -42,3 +42,18 @@ def execute_command(text: str) -> str | None:
                 r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
             ]
             opened = False
+            for path in chrome_paths:
+                if os.path.exists(path):
+                    subprocess.Popen([path, url])
+                    opened = True
+                    break
+            if not opened:
+                import webbrowser
+                webbrowser.open(url)
+            return f"Searching Google for {query}."
+        except Exception as e:
+            return f"Failed to search. Error: {e}"
+
+    # 1. Open Chrome / Websites
+    if is_open_request and ("chrome" in clean_text or "gmail" in clean_text or "youtube" in clean_text or "google" in clean_text or "github" in clean_text or "reddit" in clean_text or "stackoverflow" in clean_text):
+        try:

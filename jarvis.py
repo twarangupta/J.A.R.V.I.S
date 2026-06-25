@@ -7,3 +7,7 @@ from config import (
     SLEEP_WORD
 )
 import sys
+import msvcrt
+import numpy as np
+from faster_whisper import WhisperModel
+from audio import audio_handler
