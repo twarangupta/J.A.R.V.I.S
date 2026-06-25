@@ -93,8 +93,8 @@ available in Jarvis, along with their matching trigger words and expected behavi
   * Voice Triggers: "git status", "get status", "check status"
   * Behavior: Lists the number of modified/untracked files in the current repository.
 - Git Commit
-  * Voice Triggers: "git commit", "commit my changes", "git check in"
-  * Behavior: Stages all local changes and commits them with an automated timestamp message.
+  * Voice Triggers: "git commit", "commit my changes", "git check in", "git commit -m <message>", "commit with message <message>", "git commit saying <message>"
+  * Behavior: Stages all local changes and commits them. If a custom message is spoken (preceded by keywords like "-m", "message", "with message", or "saying"), it will use that message; otherwise, it defaults to an automated timestamp message.
 - Git Push
   * Voice Triggers: "git push", "push changes", "push my changes"
   * Behavior: Identifies the active branch and pushes local commits to the remote origin repository.
@@ -220,4 +220,20 @@ available in Jarvis, along with their matching trigger words and expected behavi
 - Dictation / Typing Helper [NEW]
   * Voice Triggers: "type <text>", "write <text>", "insert <text>"
   * Behavior: Extracts your spoken phrase (preserving case capitalization) and types/pastes it directly at the active cursor position. Runs silently without spoken confirmation.
+
+--------------------------------------------------------------------------------
+7. SYSTEM AUDIO EFFECTS & STARTUP MODES [NEW]
+--------------------------------------------------------------------------------
+- Sci-Fi Repulsor Startup Sound
+  * Trigger: Occurs automatically when launching Jarvis (`python jarvis.py`).
+  * Behavior: Synthesizes and plays a premium Iron Man-inspired repulsor power-up tone containing an igniter spark, logarithmic frequency sweep, and metallic ring-modulated chimes.
+- Sci-Fi Sleep Sound
+  * Trigger: Occurs automatically when saying "go to sleep".
+  * Behavior: Synthesizes and plays an FM-modulated power-down frequency sweep (600Hz down to 60Hz) simulating system stand-by shutdown.
+- Dynamic Startup Greetings
+  * Trigger: Occurs automatically on boot.
+  * Behavior: Randomly selects exactly ONE of the following dynamic prompts to speak on startup:
+    * **IP-based Weather/Location**: Details current temperature and city based on IP location (e.g., *"I've checked the local conditions in Dehradun. It's currently 25.5 degrees Celsius, sir."*).
+    * **Laptop Battery Status**: Reports current battery percentage and charging state (e.g., *"All protocols initialized, sir. Battery is at 96 percent, and we are currently connected to AC power."*).
+    * **Avengers / Diagnostics Prompt**: Asks questions or speaks unique high-tech Iron Man quotes (e.g., *"Jarvis is online, sir. Do you have any plans for upgrading the suit design today?"*).
 ================================================================================

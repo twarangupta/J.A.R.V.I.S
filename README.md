@@ -26,10 +26,19 @@ J.A.R.V.I.S. (Just A Rather Very Intelligent System) is a highly advanced, local
 
 ### 🐙 Git & Local Environments
 * *"Git status"* $\rightarrow$ Tells you the number of modified/untracked files.
-* *"Commit my changes"* $\rightarrow$ Automatically stages and commits your work.
+* *"Commit my changes [with message 'msg' / saying 'msg']"* $\rightarrow$ Stages and commits changes using your custom message (falls back to timestamp if none provided).
+* *"Git push"* $\rightarrow$ Pushes commits to the remote branch on origin.
+* *"Git pull"* $\rightarrow$ Pulls updates from remote repository.
+* *"Git stash"* / *"Git stash pop"* $\rightarrow$ Save modifications or restore stashed changes.
+* *"Check conflicts"* / *"Merge conflicts"* $\rightarrow$ Checks for unmerged git conflict markers in files.
+* *"Git log"* / *"Show commits"* $\rightarrow$ Reads out the last 5 commits.
+* *"Switch branch to [name]"* $\rightarrow$ Checkouts the specified branch.
+* *"Create branch [name]"* $\rightarrow$ Creates and switches to a new local branch.
+* *"List branches"* $\rightarrow$ Lists local branches and highlights active one.
 * *"Check port [number]"* / *"What is on port [number]"* $\rightarrow$ Finds the Process ID (PID) listening on that port.
 * *"Kill port [number]"* $\rightarrow$ Kills the process blocking that port.
 * *"Check Docker"* / *"Docker status"* $\rightarrow$ Lists running container names.
+* *"Check container logs for [name]"* $\rightarrow$ Fetches the last 20 lines of docker logs to your clipboard.
 
 ### 🧠 Developer Utilities
 * *"Jarvis, review my code"* $\rightarrow$ Analyzes `git diff` and writes a detailed review to `code_review.md`.
@@ -37,9 +46,14 @@ J.A.R.V.I.S. (Just A Rather Very Intelligent System) is a highly advanced, local
 * *"Search codebase for [term]"* $\rightarrow$ Finds files containing your query.
 * *"Create FastAPI boilerplate"* $\rightarrow$ Writes a ready FastAPI server script to `main.py`.
 * *"Format JSON"* $\rightarrow$ Prettifies minified JSON on your clipboard.
+* *"Debug this crash"* / *"Analyze stack trace"* $\rightarrow$ Reads traceback from clipboard, diagnoses the error using local AI, and writes `debug_report.md`.
+* *"Audit my dependencies"* $\rightarrow$ Scans `requirements.txt` or `package.json` for outdated packages.
+* *"Send a [GET/POST] request to [url]"* $\rightarrow$ Runs API requests and copies response/headers to clipboard.
+* *"Explain code file [filename]"* $\rightarrow$ Feeds the code file to local Ollama and explains its architecture and classes.
 
 ### 📂 File & Windows OS Operations
 * *"Open [vscode / spotify / calculator / notepad / docker]"* $\rightarrow$ Launches desktop applications.
+* *"Open [downloads folder / documents / desktop / pictures]"* $\rightarrow$ Opens the corresponding folder in Windows Explorer.
 * *"Take a screenshot"* $\rightarrow$ Captures screen and saves it on your Desktop.
 * *"Organize my downloads"* $\rightarrow$ Sorts your Downloads folder by file extension categories.
 * *"Close this window"* / *"Minimize window"* $\rightarrow$ Close/Minimize active windows.
@@ -72,10 +86,19 @@ J.A.R.V.I.S. (Just A Rather Very Intelligent System) is a highly advanced, local
 * *"Calculate [expression]"* $\rightarrow$ Solves vocal math equations (e.g. *"Calculate 145 times 3"*).
 * *"Tell me a joke"* $\rightarrow$ Returns a funny developer joke.
 * *"Flip a coin"* / *"Roll a dice"* $\rightarrow$ Heads/Tails coin toss or dice roll.
+* *"Read my screen"* / *"Scan screen text"* $\rightarrow$ Performs OCR screenshot analysis and copies text to clipboard.
+* *"Draft [an email / reply / message]"* $\rightarrow$ Uses local AI to generate professional text draft to clipboard.
+* *"Log [X] dollars for [category]"* $\rightarrow$ Logs transaction to `finances.csv` and reads budget summaries.
+* *"What is my schedule today"* / *"My schedule"* $\rightarrow$ Parses local calendar `calendar.ics` and lists upcoming events.
+* *"Run a speed test"* $\rightarrow$ Measures local download speeds and ping latency.
+* *"Translate [text] to [language]"* $\rightarrow$ Submits translation tasks to local Ollama.
+* *"Type [text]"* / *"Write [text]"* $\rightarrow$ Paste-types spoken text directly at cursor silently.
 
-### 🤫 Focus & Workspace Launchers
+### 🤫 Focus, Audio Themes & Greetings
 * *"Meeting mode"* / *"Focus mode"* $\rightarrow$ Mutes the PC and minimizes all open windows.
 * *"Start project [name]"* $\rightarrow$ Launches VS Code in the workspace and opens GitHub.
+* **Premium Audio Effects**: Procedural synthesis of Iron Man power-up sound effects upon startup, and sweep power-down tones upon running standby "go to sleep".
+* **Dynamic Greetings**: Randomly speaks either location weather (IP-derived), laptop battery telemetry, or Avengers-themed diagnostic quotes on boot.
 
 ---
 
