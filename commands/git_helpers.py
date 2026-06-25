@@ -17,8 +17,19 @@ def execute_git_command(clean_text: str) -> str | None:
     # Git commit
     if "git commit" in clean_text or "get commit" in clean_text or "commit my changes" in clean_text or "git check in" in clean_text or "get check in" in clean_text:
         try:
+            # Check for a custom commit message in the command text
+            msg = None
+            for marker in ["-m ", "--message ", "with message ", "message ", "saying "]:
+                if marker in clean_text:
+                    parts = clean_text.split(marker, 1)
+                    extracted = parts[1].strip().strip('"\'')
+                    if extracted:
+                        msg = extracted
+                        break
+            if not msg:
+                msg = f"Automated commit via Jarvis on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
             subprocess.run(["git", "add", "."], check=True)
-            msg = f"Automated commit via Jarvis on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
             subprocess.run(["git", "commit", "-m", msg], check=True)
             return f"Staged all files and committed with message: {msg}."
         except Exception as e:
