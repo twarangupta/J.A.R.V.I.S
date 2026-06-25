@@ -33,3 +33,4 @@ VOICE_INDEX = 0 # 0 for male, 1 for female (depends on system voices installed)
 
 # Audio Settings
 SAMPLE_RATE = 16000 # Required by OpenWakeWord and Whisper
+CHUNK_SIZE = 1280    # 80ms chunk size for 16kHz audio

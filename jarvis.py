@@ -173,3 +173,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nShutdown signal received. Jarvis going offline.")
         stop_speaking()
+        speak("Goodbye, sir. Going offline.")
+        wait_speaking()
+        audio_handler.terminate()
+        sys.exit(0)

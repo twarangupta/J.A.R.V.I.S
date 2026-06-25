@@ -10,3 +10,4 @@ response = chat(
     ]
 )
 
+print(response["message"]["content"])

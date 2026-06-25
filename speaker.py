@@ -108,3 +108,6 @@ def wait_speaking():
     """Global function to wait for playback to finish."""
     _speaker.wait()
 
+def is_speaking():
+    """Global function to check if speaking."""
+    return _speaker.is_speaking

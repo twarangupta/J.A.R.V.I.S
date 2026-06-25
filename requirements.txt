@@ -7,3 +7,4 @@ numpy>=2.0.0,<3.0.0
 scipy>=1.10.0
 sounddevice>=0.5.5
 soundfile>=0.14.0
+SpeechRecognition>=3.17.0

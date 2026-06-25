@@ -45,3 +45,4 @@ class WakeWordDetector:
 
     def reset(self):
         """Resets the model's prediction buffer and internal state."""
+        self.model.reset()

@@ -27,3 +27,4 @@ def main():
     download_file(json_url, os.path.join(model_dir, "jarvis-high.onnx.json"))
 
 if __name__ == "__main__":
+    main()

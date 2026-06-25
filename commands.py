@@ -797,3 +797,18 @@ def read_root():
         except Exception as e:
             return f"Failed to activate meeting mode. Error: {e}"
 
+    # 43. Project Workspace Launcher
+    if "start project" in clean_text or "launch project" in clean_text:
+        try:
+            proj_name = "Jarvis"
+            if "project" in clean_text:
+                proj_name = clean_text.split("project", 1)[1].strip()
+            subprocess.Popen("code .", shell=True)
+            import webbrowser
+            webbrowser.open("https://github.com")
+            return f"Project workspace launched for {proj_name}, sir."
+        except Exception as e:
+            return f"Failed to launch workspace. Error: {e}"
+
+    # Return None if no command matched
+    return None

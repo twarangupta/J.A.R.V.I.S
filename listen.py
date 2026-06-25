@@ -11,3 +11,4 @@ with sr.Microphone() as source:
 
     text = recognizer.recognize_google(audio)
 
+    print("You said:", text)

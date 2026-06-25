@@ -35,3 +35,4 @@ except KeyboardInterrupt:
 finally:
     stream.stop_stream()
     stream.close()
+    pa.terminate()

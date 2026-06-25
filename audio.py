@@ -111,3 +111,6 @@ class AudioHandler:
         """Clean up PyAudio resource."""
         self.stop_stream()
         self.pa.terminate()
+
+# Global audio handler instance
+audio_handler = AudioHandler()

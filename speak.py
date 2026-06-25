@@ -9,3 +9,4 @@ engine.setProperty("rate", 150)
 engine.setProperty("volume", 1.0)
 
 engine.say("Welcome home Sir.")
+engine.runAndWait()

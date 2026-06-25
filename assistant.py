@@ -49,3 +49,4 @@ except sr.UnknownValueError:
     speak("Sorry, I couldn't understand you.")
 
 except Exception as e:
+    print(e)

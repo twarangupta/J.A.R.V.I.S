@@ -51,3 +51,4 @@ def ask_ai(question: str) -> str:
 
 def reset_brain():
     """Convenience helper to clear memory."""
+    brain.reset_conversation()

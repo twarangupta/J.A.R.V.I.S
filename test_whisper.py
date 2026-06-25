@@ -6,3 +6,4 @@ model = WhisperModel(
     compute_type="int8"
 )
 
+print("Whisper Loaded Successfully")
